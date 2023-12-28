@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>JAVA源码学习：util篇（4）</title>
+    <link href="/2023/12/28/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%9Autil%E7%AF%87%EF%BC%884%EF%BC%89/"/>
+    <url>/2023/12/28/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%9Autil%E7%AF%87%EF%BC%884%EF%BC%89/</url>
+    
+    <content type="html"><![CDATA[<h3 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h3><ul><li>特点：类实现了一个可增长的对象数组。像数组一样，它包含可以使用整数索引访问的组件。大小可以根据需要增长或缩小，每个暴露的api方法都带有线程锁，保证了线程安全，同时导致性能较差</li><li>默认初始容量：10</li><li>最大容量：Integer.MAX_VALUE - 8</li><li>自动增长策略：以capacityIncrement的int类型参数来决定每次自动增长的长度，若capacityIncrement的值小于等于0，则扩容到原来的2倍，如果2倍仍不够则扩容至所需要的容量</li></ul><hr><h3 id="Stack-继承Vector"><a href="#Stack-继承Vector" class="headerlink" title="Stack(继承Vector)"></a>Stack(继承Vector)</h3><ul><li>特点：实现栈的数据结构（先进后出），继承了Vector，是线程安全的，但是效率较差</li><li>默认初始容量：0</li><li>其他特性与Vector一样，不再赘述</li></ul><hr><h3 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h3><ul><li>特点：基于红黑树的实现，可通过new comparator自定义自动排序规则</li></ul><hr><h3 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h3><ul><li>特点：基于基于TreeMap的NavigableSet实现，同样是红黑树结构</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>JAVA核心源码</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+      <tag>源码</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>linux常用命令（持续更新中）</title>
     <link href="/2023/12/26/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
     <url>/2023/12/26/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
@@ -29,38 +56,11 @@
   
   
   <entry>
-    <title>JAVA源码学习（3）</title>
-    <link href="/2023/12/26/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%883%EF%BC%89/"/>
-    <url>/2023/12/26/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%883%EF%BC%89/</url>
+    <title>JAVA源码学习：util篇（3）</title>
+    <link href="/2023/12/26/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%9Autil%E7%AF%87%EF%BC%883%EF%BC%89/"/>
+    <url>/2023/12/26/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%9Autil%E7%AF%87%EF%BC%883%EF%BC%89/</url>
     
-    <content type="html"><![CDATA[<h3 id="LinkedHashMap（继承自HashMap）"><a href="#LinkedHashMap（继承自HashMap）" class="headerlink" title="LinkedHashMap（继承自HashMap）"></a>LinkedHashMap（继承自HashMap）</h3><ul><li>特点：使用双向链表+链表+红黑树方法实现，在继承父类（HashMap）下，用head和tail两个节点来标记链表的头和尾，有一个boolen类型的accessOrder参数，用于控制迭代顺序,ture为访问顺序，false为插入顺序。</li><li>构造方式：继承HashMap，且accessOrder默认为false</li><li>（初始容量、最大容量、默认负载因子、链表转化树的默认阈值、树转化链表的默认阈值、自动扩容机制、哈希桶的特殊转化机制均与HashMap相同，这里不再赘述）</li></ul><blockquote><p>迭代顺序：<br>1.访问顺序（access-order）：在这种方法中，链表中的元素将按照它们最近一次被访问的时间排序。最近访问的元素排在最前面，而较早访问的元素排在后面；<br>2.插入顺序（insertion-order）：在这种方法中，链表中的元素将按照它们被插入到哈希映射中的顺序排列。最早插入的元素排在最前面，而最近插入的元素排在后面。</p></blockquote><h3 id="LinkedHashSet（继承HashSet）"><a href="#LinkedHashSet（继承HashSet）" class="headerlink" title="LinkedHashSet（继承HashSet）"></a>LinkedHashSet（继承HashSet）</h3><ul><li>特点：在继承HashSet的基础上重写的迭代方法spliterator，保证了读取和存入顺序相同，伪链表。</li></ul><h3 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h3><ul><li>特点：使用双向链表实现</li><li>默认初始长度：0</li></ul>]]></content>
-    
-    
-    <categories>
-      
-      <category>JAVA核心源码</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>java</tag>
-      
-      <tag>源码</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>JAVA源码学习（2）</title>
-    <link href="/2023/12/26/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%882%EF%BC%89/"/>
-    <url>/2023/12/26/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%882%EF%BC%89/</url>
-    
-    <content type="html"><![CDATA[<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><ul><li>特点：使用了数组＋链表＋红黑树实现，Node数组为table，使用（table.length - 1) &amp; hashcode（key）得到Node数组下标</li><li>初始容量：new出来后为空（空参），在添加了第一个元素后，自动扩容到16</li><li>最大容量：2^30</li><li>默认负载因子：0.75</li><li>链表转化树的默认阈值：8（至少为8）</li><li>树转化链表的默认阈值：6（最多为6）</li><li>转化为树时，一个哈希桶的最小容量：4*链表转化树的默认阈值 容量默认为64</li><li>自动扩容机制（桶数量）：当当前实际容量大于（负载因子*当前最大容量时）进行自动扩容，扩容到原来的2倍</li><li>哈希桶的特殊转化机制：当桶中的数量大于链表转化树的阈值，则桶中的链表转化红黑树，当桶中的数量小于树转化链表的阈值则从树退化成链表</li></ul><h3 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h3><ul><li>特点：背后依赖于HashMap进行实现，参数除了序列化ID，有HashMap和PRESENT（private static final Object）</li><li>去重方式：依赖hashmap中key唯一的特点，进行去重，通过map.put(e, PRESENT)的方式进行添加（PRESENT的hash值在同一个HashSet是唯一的）</li></ul><h4 id="HashTable"><a href="#HashTable" class="headerlink" title="HashTable"></a>HashTable</h4><p>HashTable</p><ul><li><p>特点：</p><ol><li><p>使用数组＋链表的实现方式，解决哈希冲突的方法为链地址法，且不会转化为红黑树，性能较hashmap来说比较差；</p></li><li><p>各种对元素进行操作或者查询方法使用了synchronized同步锁，保证了线程安全，但是导致性能较差；</p></li><li><p>下标直接通过hashcode % tab.length 进行计算，可能会导致分布不够均匀，进一步影响性能。</p></li></ol></li><li><p>初始容量：11</p></li><li><p>最大容量：Integer.MAX_VALUE - 8</p></li><li><p>默认负载因子：0.75</p></li><li><p>自动扩容机制：当当前实际容量大于（负载因子*当前最大容量时）进行自动扩容，扩容到原来的2倍</p></li></ul>]]></content>
+    <content type="html"><![CDATA[<h3 id="LinkedHashMap（继承自HashMap）"><a href="#LinkedHashMap（继承自HashMap）" class="headerlink" title="LinkedHashMap（继承自HashMap）"></a>LinkedHashMap（继承自HashMap）</h3><ul><li>特点：使用双向链表+链表+红黑树方法实现，在继承父类（HashMap）下，用head和tail两个节点来标记链表的头和尾，有一个boolen类型的accessOrder参数，用于控制迭代顺序,ture为访问顺序，false为插入顺序。</li><li>构造方式：继承HashMap，且accessOrder默认为false</li><li>（初始容量、最大容量、默认负载因子、链表转化树的默认阈值、树转化链表的默认阈值、自动扩容机制、哈希桶的特殊转化机制均与HashMap相同，这里不再赘述）</li></ul><blockquote><p>迭代顺序：<br>1.访问顺序（access-order）：在这种方法中，链表中的元素将按照它们最近一次被访问的时间排序。最近访问的元素排在最前面，而较早访问的元素排在后面；<br>2.插入顺序（insertion-order）：在这种方法中，链表中的元素将按照它们被插入到哈希映射中的顺序排列。最早插入的元素排在最前面，而最近插入的元素排在后面。</p></blockquote><hr><h3 id="LinkedHashSet（继承HashSet）"><a href="#LinkedHashSet（继承HashSet）" class="headerlink" title="LinkedHashSet（继承HashSet）"></a>LinkedHashSet（继承HashSet）</h3><ul><li>特点：在继承HashSet的基础上重写的迭代方法spliterator，保证了读取和存入顺序相同，伪链表。</li></ul><hr><h3 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h3><ul><li>特点：使用双向链表实现</li><li>默认初始长度：0</li></ul>]]></content>
     
     
     <categories>
@@ -83,11 +83,38 @@
   
   
   <entry>
-    <title>JAVA源码学习（1）</title>
-    <link href="/2023/12/25/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%881%EF%BC%89/"/>
-    <url>/2023/12/25/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%881%EF%BC%89/</url>
+    <title>JAVA源码学习：util篇（2）</title>
+    <link href="/2023/12/26/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%9Autil%E7%AF%87%EF%BC%882%EF%BC%89/"/>
+    <url>/2023/12/26/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%9Autil%E7%AF%87%EF%BC%882%EF%BC%89/</url>
     
-    <content type="html"><![CDATA[<h3 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h3><ul><li>这个类包含各种操作数组的方法(比如排序和查找)。这个类还包含一个静态工厂，允许将数组视为列表。</li></ul><h3 id="ArrayDeque"><a href="#ArrayDeque" class="headerlink" title="ArrayDeque"></a>ArrayDeque</h3><ul><li>实际为循环队列 hail变化，tail一直指向null</li><li>最大容量为：Integer.MAX_VALUE - 8</li><li>初始容量：16个元素的长度</li><li>自动扩容策略：当前容量小于64时，则增长到原来的2倍，大于64则增长到原来的1.5倍，如果增长的需要大于原来的1.5倍，则扩容至所需要的容量</li></ul><h3 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h3><ul><li><p>初始容量：new出来后为空（空参），在添加了第一个元素后，自动扩容到10</p></li><li><p>最大容量为：Integer.MAX_VALUE - 8（可自行设定，最大为Integer.MAX_VALUE）</p></li><li><p>自动扩容策略：</p><ol><li><p>开始为空，在添加了第一个元素后，自动扩容到10。</p></li><li><p>到原来的1.5倍，如果增长的需要大于原来的1.5倍，则扩容至所需要的容量。</p></li></ol></li></ul>]]></content>
+    <content type="html"><![CDATA[<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><ul><li>特点：使用了数组＋链表＋红黑树实现，Node数组为table，使用（table.length - 1) &amp; hashcode（key）得到Node数组下标</li><li>初始容量：new出来后为空（空参），在添加了第一个元素后，自动扩容到16</li><li>最大容量：2^30</li><li>默认负载因子：0.75</li><li>链表转化树的默认阈值：8（至少为8）</li><li>树转化链表的默认阈值：6（最多为6）</li><li>转化为树时，一个哈希桶的最小容量：4*链表转化树的默认阈值 容量默认为64</li><li>自动扩容机制（桶数量）：当当前实际容量大于（负载因子*当前最大容量时）进行自动扩容，扩容到原来的2倍</li><li>哈希桶的特殊转化机制：当桶中的数量大于链表转化树的阈值，则桶中的链表转化红黑树，当桶中的数量小于树转化链表的阈值则从树退化成链表</li></ul><hr><h3 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h3><ul><li>特点：背后依赖于HashMap进行实现，参数除了序列化ID，有HashMap和PRESENT（private static final Object）</li><li>去重方式：依赖hashmap中key唯一的特点，进行去重，通过map.put(e, PRESENT)的方式进行添加（PRESENT的hash值在同一个HashSet是唯一的）</li></ul><hr><h4 id="HashTable"><a href="#HashTable" class="headerlink" title="HashTable"></a>HashTable</h4><p>HashTable</p><ul><li><p>特点：</p><ol><li><p>使用数组＋链表的实现方式，解决哈希冲突的方法为链地址法，且不会转化为红黑树，性能较hashmap来说比较差；</p></li><li><p>各种对元素进行操作或者查询方法使用了synchronized同步锁，保证了线程安全，但是导致性能较差；</p></li><li><p>下标直接通过hashcode % tab.length 进行计算，可能会导致分布不够均匀，进一步影响性能。</p></li></ol></li><li><p>初始容量：11</p></li><li><p>最大容量：Integer.MAX_VALUE - 8</p></li><li><p>默认负载因子：0.75</p></li><li><p>自动扩容机制：当当前实际容量大于（负载因子*当前最大容量时）进行自动扩容，扩容到原来的2倍</p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>JAVA核心源码</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+      <tag>源码</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>JAVA源码学习：util篇（1）</title>
+    <link href="/2023/12/25/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%9Autil%E7%AF%87%EF%BC%881%EF%BC%89/"/>
+    <url>/2023/12/25/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%9Autil%E7%AF%87%EF%BC%881%EF%BC%89/</url>
+    
+    <content type="html"><![CDATA[<h3 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h3><ul><li>这个类包含各种操作数组的方法(比如排序和查找)。这个类还包含一个静态工厂，允许将数组视为列表。</li></ul><hr><h3 id="ArrayDeque"><a href="#ArrayDeque" class="headerlink" title="ArrayDeque"></a>ArrayDeque</h3><ul><li>实际为循环队列 hail变化，tail一直指向null</li><li>最大容量为：Integer.MAX_VALUE - 8</li><li>初始容量：16个元素的长度</li><li>自动扩容策略：当前容量小于64时，则增长到原来的2倍，大于64则增长到原来的1.5倍，如果增长的需要大于原来的1.5倍，则扩容至所需要的容量</li></ul><hr><h3 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h3><ul><li><p>初始容量：new出来后为空（空参），在添加了第一个元素后，自动扩容到10</p></li><li><p>最大容量为：Integer.MAX_VALUE - 8（可自行设定，最大为Integer.MAX_VALUE）</p></li><li><p>自动扩容策略：</p><ol><li><p>开始为空，在添加了第一个元素后，自动扩容到10。</p></li><li><p>到原来的1.5倍，如果增长的需要大于原来的1.5倍，则扩容至所需要的容量。</p></li></ol></li></ul>]]></content>
     
     
     <categories>
