@@ -419,7 +419,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2023/12/26/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%9Autil%E7%AF%87%EF%BC%882%EF%BC%89/" target="_self">
         <div>
-          HashMap 特点：使用了数组＋链表＋红黑树实现，Node数组为table，使用（table.length - 1) &amp; hashcode（key）得到Node数组下标 初始容量：new出来后为空（空参），在添加了第一个元素后，自动扩容到16 最大容量：2^30 默认负载因子：0.75 链表转化树的默认阈值：8（至少为8） 树转化链表的默认阈值：6（最多为6） 转化为树时，一个哈希桶的最
+          HashMap 特点：使用了数组＋链表＋红黑树实现，Node数组为table，使用（table.length - 1) &amp; hashcode（key）得到Node数组下标 初始容量：new出来后为空（空参），在添加了第一个元素后，自动扩容到16 最大容量：2^30 默认负载因子：0.75 链表转化树的默认阈值：链表长度大于8（至少为8），且表当前的容量不少于64 树转化链表的默认阈值：6（
         </div>
       </a>
 
