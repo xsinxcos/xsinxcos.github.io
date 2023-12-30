@@ -24,9 +24,9 @@
 <meta property="og:description" content="目标一、目标对已实现的 Spring Bean 容器进行功能完善，实现 Bean 容器关于 Bean 对象的注册和获取。 二、设计将 Spring Bean 容器完善起来，首先非常重要的一点是在 Bean 注册的时候只注册一个类信息，而不会直接把实例化信息注册到 Spring 容器中。那么就需要修改 BeanDefinition 中的属性 Object 为 Class，接下来在需要做的就是在获取">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xsinxcos.github.io/img/%E6%89%8B%E6%92%B8Spring%E7%B3%BB%E5%88%97/image-20231231013033695.png">
-<meta property="og:image" content="https://xsinxcos.github.io/..%5Cimg%5C%E6%89%8B%E6%92%B8Spring%E7%B3%BB%E5%88%97%5Cimage-20231231013250315.png">
+<meta property="og:image" content="https://xsinxcos.github.io/img/%E6%89%8B%E6%92%B8Spring%E7%B3%BB%E5%88%97/image-20231231013250315.png">
 <meta property="article:published_time" content="2023-12-30T18:41:00.000Z">
-<meta property="article:modified_time" content="2023-12-30T18:42:00.831Z">
+<meta property="article:modified_time" content="2023-12-30T18:44:50.324Z">
 <meta property="article:author" content="xsinxcos(涿)">
 <meta property="article:tag" content="源码">
 <meta property="article:tag" content="spring">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1.5k 字
         
       </span>
     
@@ -283,7 +283,7 @@
 <h2 id="三、实现"><a href="#三、实现" class="headerlink" title="三、实现"></a>三、实现</h2><h3 id="1-工程结构"><a href="#1-工程结构" class="headerlink" title="1. 工程结构"></a>1. 工程结构</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs stylus">small-spring-step-<span class="hljs-number">02</span><br>└── <span class="hljs-attribute">src</span><br>    ├── <span class="hljs-selector-tag">main</span><br>    │   └── java<br>    │       └── cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.springframework</span><span class="hljs-selector-class">.beans</span><br>    │           ├── factory<br>    │           │   ├── factory<br>    │           │   │   ├── BeanDefinition<span class="hljs-selector-class">.java</span><br>    │           │   │   └── SingletonBeanRegistry<span class="hljs-selector-class">.java</span><br>    │           │   ├── support<br>    │           │   │   ├── AbstractAutowireCapableBeanFactory<span class="hljs-selector-class">.java</span><br>    │           │   │   ├── AbstractBeanFactory<span class="hljs-selector-class">.java</span><br>    │           │   │   ├── BeanDefinitionRegistry<span class="hljs-selector-class">.java</span><br>    │           │   │   ├── DefaultListableBeanFactory<span class="hljs-selector-class">.java</span><br>    │           │   │   └── DefaultSingletonBeanRegistry<span class="hljs-selector-class">.java</span><br>    │           │   └── BeanFactory<span class="hljs-selector-class">.java</span><br>    │           └── BeansException<span class="hljs-selector-class">.java</span><br>    └── test<br>        └── java<br>            └── cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.springframework</span><span class="hljs-selector-class">.test</span><br>                ├── bean<br>                │   └── UserService<span class="hljs-selector-class">.java</span><br>                └── ApiTest.java<br></code></pre></td></tr></table></figure>
 
 <p>Spring Bean 容器类关系，如图 3-2</p>
-<p><img src="/..%5Cimg%5C%E6%89%8B%E6%92%B8Spring%E7%B3%BB%E5%88%97%5Cimage-20231231013250315.png" srcset="/img/loading.gif" lazyload alt="image-20231231013250315"></p>
+<p><img src="/../img/%E6%89%8B%E6%92%B8Spring%E7%B3%BB%E5%88%97/image-20231231013250315.png" srcset="/img/loading.gif" lazyload alt="image-20231231013250315"></p>
 <p>虽然这一章节关于 Spring Bean 容器的功能实现与 <code>Spring 源码</code>中还有不少的差距，但以目前实现结果的类关系图来看，其实已经具备了一定的设计复杂性，这些复杂的类关系设计在各个接口定义和实现以及在抽象类继承中都有所体现，例如：</p>
 <ul>
 <li><strong>BeanFactory</strong> 的定义由 <strong>AbstractBeanFactory 抽象类实现接口的 getBean 方法</strong></li>
@@ -343,6 +343,7 @@
 <li>第一次获取bean时，将<strong>Bean的实例</strong>放入<strong>singletonObjects（单例对象）</strong>中（通过HashMap置于缓存中），同时返回已实例化的bean</li>
 <li>第二次获取bean时，直接通过<strong>singletonObjects（单例对象）</strong>从缓存得到已存入的bean实例</li>
 </ol>
+<p>[文章部分引用]: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzIxMDAwMDAxMw==&amp;mid=2650730563&amp;idx=1&amp;sn=54f7765a18b974649856842a6f2203a2&amp;chksm=8f6111a1b81698b7ce66aed26180285c9247677263962a95397ce3d3eeb18a27dee53d11be94&amp;cur_album_id=1871634116341743621&amp;scene=189#wechat_redirect">https://mp.weixin.qq.com/s?__biz=MzIxMDAwMDAxMw==&amp;mid=2650730563&amp;idx=1&amp;sn=54f7765a18b974649856842a6f2203a2&amp;chksm=8f6111a1b81698b7ce66aed26180285c9247677263962a95397ce3d3eeb18a27dee53d11be94&amp;cur_album_id=1871634116341743621&amp;scene=189#wechat_redirect</a>	“《Spring 手撸专栏》第 3 章：初显身手，运用设计模式，实现 Bean 的定义、注册、获取”</p>
 
                 
               </div>
