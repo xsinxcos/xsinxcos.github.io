@@ -1,0 +1,779 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xsinxcos(涿)">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、目标在完成 Spring 的框架雏形后，现在我们可以通过单元测试进行手动操作 Bean 对象的定义、注册和属性填充，以及最终获取对象调用方法。但这里会有一个问题，就是如果实际使用这个 Spring 框架，是不太可能让用户通过手动方式创建的，而是最好能通过配置文件的方式简化创建过程。需要完成如下操作：   如图中我们需要把步骤：2、3、4整合到Spring框架中，通过 Spring 配置文件的方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手撸Spring：设计与实现资源加载器，从Spring.xml解析和注册Bean对象（Day5）">
+<meta property="og:url" content="https://xsinxcos.github.io/2024/01/18/%E6%89%8B%E6%92%B8Spring%EF%BC%9Aday5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、目标在完成 Spring 的框架雏形后，现在我们可以通过单元测试进行手动操作 Bean 对象的定义、注册和属性填充，以及最终获取对象调用方法。但这里会有一个问题，就是如果实际使用这个 Spring 框架，是不太可能让用户通过手动方式创建的，而是最好能通过配置文件的方式简化创建过程。需要完成如下操作：   如图中我们需要把步骤：2、3、4整合到Spring框架中，通过 Spring 配置文件的方">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xsinxcos.github.io/img/%E6%89%8B%E6%92%B8Spring%E7%B3%BB%E5%88%97/image-20240118015147266.png">
+<meta property="og:image" content="https://xsinxcos.github.io/img/%E6%89%8B%E6%92%B8Spring%E7%B3%BB%E5%88%97/image-20240118015309831.png">
+<meta property="og:image" content="https://xsinxcos.github.io/img/%E6%89%8B%E6%92%B8Spring%E7%B3%BB%E5%88%97/image-20240118015435040.png">
+<meta property="og:image" content="https://xsinxcos.github.io/img/%E6%89%8B%E6%92%B8Spring%E7%B3%BB%E5%88%97/image-20240118015533478.png">
+<meta property="article:published_time" content="2024-01-17T17:51:00.000Z">
+<meta property="article:modified_time" content="2024-01-17T17:58:25.025Z">
+<meta property="article:author" content="xsinxcos(涿)">
+<meta property="article:tag" content="源码">
+<meta property="article:tag" content="spring">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xsinxcos.github.io/img/%E6%89%8B%E6%92%B8Spring%E7%B3%BB%E5%88%97/image-20240118015147266.png">
+  
+  
+  
+  <title>手撸Spring：设计与实现资源加载器，从Spring.xml解析和注册Bean对象（Day5） - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xsinxcos.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>XSINXCOS(涿)</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/p2.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="手撸Spring：设计与实现资源加载器，从Spring.xml解析和注册Bean对象（Day5）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-18 01:51" pubdate>
+          2024年1月18日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">手撸Spring：设计与实现资源加载器，从Spring.xml解析和注册Bean对象（Day5）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一、目标"><a href="#一、目标" class="headerlink" title="一、目标"></a>一、目标</h2><p>在完成 Spring 的框架雏形后，现在我们可以通过单元测试进行手动操作 Bean 对象的定义、注册和属性填充，以及最终获取对象调用方法。但这里会有一个问题，就是如果实际使用这个 Spring 框架，是不太可能让用户通过手动方式创建的，而是最好能通过配置文件的方式简化创建过程。需要完成如下操作：</p>
+<p><img src="/../img/%E6%89%8B%E6%92%B8Spring%E7%B3%BB%E5%88%97/image-20240118015147266.png" srcset="/img/loading.gif" lazyload alt="image-20240118015147266"></p>
+<ul>
+<li>如图中我们需要把步骤：2、3、4整合到Spring框架中，通过 Spring 配置文件的方式将 Bean 对象实例化。</li>
+<li>接下来我们就需要在现有的 Spring 框架中，添加能解决 Spring 配置的读取、解析、注册Bean的操作。</li>
+</ul>
+<h2 id="二、设计"><a href="#二、设计" class="headerlink" title="二、设计"></a>二、设计</h2><p>依照本章节的需求背景，我们需要在现有的 Spring 框架雏形中添加一个资源解析器，也就是能读取classpath、本地文件和云文件的配置内容。这些配置内容就是像使用 Spring 时配置的 Spring.xml 一样，里面会包括 Bean 对象的描述和属性信息。在读取配置文件信息后，接下来就是对配置文件中的 Bean 描述信息解析后进行注册操作，把 Bean 对象注册到 Spring 容器中。整体设计结构如下图：</p>
+<p><img src="/../img/%E6%89%8B%E6%92%B8Spring%E7%B3%BB%E5%88%97/image-20240118015309831.png" srcset="/img/loading.gif" lazyload alt="image-20240118015309831"></p>
+<ul>
+<li>资源加载器属于相对独立的部分，它位于 Spring 框架核心包下的IO实现内容，主要用于处理Class、本地和云环境中的文件信息。</li>
+<li>当资源可以加载后，接下来就是解析和注册 Bean 到 Spring 中的操作，这部分实现需要和 DefaultListableBeanFactory 核心类结合起来，因为你所有的解析后的注册动作，都会把 Bean 定义信息放入到这个类中。</li>
+<li>那么在实现的时候就设计好接口的实现层级关系，包括我们需要定义出 Bean 定义的读取接口 <code>BeanDefinitionReader</code> 以及做好对应的实现类，在实现类中完成对 Bean 对象的解析和注册。</li>
+</ul>
+<h2 id="三、实现"><a href="#三、实现" class="headerlink" title="三、实现"></a>三、实现</h2><h3 id="1-工程结构"><a href="#1-工程结构" class="headerlink" title="1. 工程结构"></a>1. 工程结构</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs stylus">small-spring-step-<span class="hljs-number">05</span><br>└── <span class="hljs-attribute">src</span><br>    ├── <span class="hljs-selector-tag">main</span><br>    │   └── java<br>    │       └── cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.springframework</span>  <br>    │           ├── beans<br>    │           │   ├── factory<br>    │           │   │   ├── factory<br>    │           │   │   │   ├── AutowireCapableBeanFactory<span class="hljs-selector-class">.java</span><br>    │           │   │   │   ├── BeanDefinition<span class="hljs-selector-class">.java</span><br>    │           │   │   │   ├── BeanReference<span class="hljs-selector-class">.java</span><br>    │           │   │   │   ├── ConfigurableBeanFactory<span class="hljs-selector-class">.java</span><br>    │           │   │   │   └── SingletonBeanRegistry<span class="hljs-selector-class">.java</span><br>    │           │   │   ├── support<br>    │           │   │   │   ├── AbstractAutowireCapableBeanFactory<span class="hljs-selector-class">.java</span><br>    │           │   │   │   ├── AbstractBeanDefinitionReader<span class="hljs-selector-class">.java</span><br>    │           │   │   │   ├── AbstractBeanFactory<span class="hljs-selector-class">.java</span><br>    │           │   │   │   ├── BeanDefinitionReader<span class="hljs-selector-class">.java</span><br>    │           │   │   │   ├── BeanDefinitionRegistry<span class="hljs-selector-class">.java</span><br>    │           │   │   │   ├── CglibSubclassingInstantiationStrategy<span class="hljs-selector-class">.java</span><br>    │           │   │   │   ├── DefaultListableBeanFactory<span class="hljs-selector-class">.java</span><br>    │           │   │   │   ├── DefaultSingletonBeanRegistry<span class="hljs-selector-class">.java</span><br>    │           │   │   │   ├── InstantiationStrategy<span class="hljs-selector-class">.java</span><br>    │           │   │   │   └── SimpleInstantiationStrategy<span class="hljs-selector-class">.java</span>  <br>    │           │   │   ├── support<br>    │           │   │   │   └── XmlBeanDefinitionReader<span class="hljs-selector-class">.java</span><br>    │           │   │   ├── BeanFactory<span class="hljs-selector-class">.java</span><br>    │           │   │   ├── ConfigurableListableBeanFactory<span class="hljs-selector-class">.java</span><br>    │           │   │   ├── HierarchicalBeanFactory<span class="hljs-selector-class">.java</span><br>    │           │   │   └── ListableBeanFactory<span class="hljs-selector-class">.java</span><br>    │           │   ├── BeansException<span class="hljs-selector-class">.java</span><br>    │           │   ├── PropertyValue<span class="hljs-selector-class">.java</span><br>    │           │   └── PropertyValues<span class="hljs-selector-class">.java</span> <br>    │           ├── core<span class="hljs-selector-class">.io</span><br>    │           │   ├── ClassPathResource<span class="hljs-selector-class">.java</span> <br>    │           │   ├── DefaultResourceLoader<span class="hljs-selector-class">.java</span> <br>    │           │   ├── FileSystemResource<span class="hljs-selector-class">.java</span> <br>    │           │   ├── Resource<span class="hljs-selector-class">.java</span> <br>    │           │   ├── ResourceLoader<span class="hljs-selector-class">.java</span> <br>    │           │   └── UrlResource<span class="hljs-selector-class">.java</span><br>    │           └── utils<br>    │               └── ClassUtils<span class="hljs-selector-class">.java</span><br>    └── test<br>        └── java<br>            └── cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.springframework</span><span class="hljs-selector-class">.test</span><br>                ├── bean<br>                │   ├── UserDao<span class="hljs-selector-class">.java</span><br>                │   └── UserService<span class="hljs-selector-class">.java</span><br>                └── ApiTest.java<br></code></pre></td></tr></table></figure>
+
+<p>Spring Bean 容器资源加载和使用类关系，如图 6-3</p>
+<p><img src="/../img/%E6%89%8B%E6%92%B8Spring%E7%B3%BB%E5%88%97/image-20240118015435040.png" srcset="/img/loading.gif" lazyload alt="image-20240118015435040"></p>
+<ul>
+<li>本章节为了能把 Bean 的定义、注册和初始化交给 Spring.xml 配置化处理，那么就需要实现两大块内容，分别是：资源加载器、xml资源处理类，实现过程主要以对接口 <code>Resource</code>、<code>ResourceLoader</code> 的实现，而另外 <code>BeanDefinitionReader</code> 接口则是对资源的具体使用，将配置信息注册到 Spring 容器中去。</li>
+<li>在 Resource 的资源加载器的实现中包括了，ClassPath、系统文件、云配置文件，这三部分与 Spring 源码中的设计和实现保持一致，最终在 DefaultResourceLoader 中做具体的调用。</li>
+<li>接口：BeanDefinitionReader、抽象类：AbstractBeanDefinitionReader、实现类：XmlBeanDefinitionReader，这三部分内容主要是合理清晰的处理了资源读取后的注册 Bean 容器操作。<em>接口管定义，抽象类处理非接口功能外的注册Bean组件填充，最终实现类即可只关心具体的业务实现</em></li>
+</ul>
+<p>另外本章节还参考 Spring 源码，做了相应接口的集成和实现的关系，虽然这些接口目前还并没有太大的作用，但随着框架的逐步完善，它们也会发挥作用。如图 6-4</p>
+<p><img src="/../img/%E6%89%8B%E6%92%B8Spring%E7%B3%BB%E5%88%97/image-20240118015533478.png" srcset="/img/loading.gif" lazyload alt="image-20240118015533478"></p>
+<ul>
+<li>BeanFactory，已经存在的 Bean 工厂接口用于获取 Bean 对象，这次新增加了按照类型获取 Bean 的方法：<code>&lt;T&gt; T getBean(String name, Class&lt;T&gt; requiredType)</code></li>
+<li>ListableBeanFactory，是一个扩展 Bean 工厂接口的接口，新增加了 <code>getBeansOfType</code>、<code>getBeanDefinitionNames()</code> 方法，在 Spring 源码中还有其他扩展方法。</li>
+<li>HierarchicalBeanFactory，在 Spring 源码中它提供了可以获取父类 BeanFactory 方法，属于是一种扩展工厂的层次子接口。<em>Sub-interface implemented by bean factories that can be part of a hierarchy.</em></li>
+<li>AutowireCapableBeanFactory，是一个自动化处理Bean工厂配置的接口，目前案例工程中还没有做相应的实现，后续逐步完善。</li>
+<li>ConfigurableBeanFactory，可获取 BeanPostProcessor、BeanClassLoader等的一个配置化接口。</li>
+<li>ConfigurableListableBeanFactory，提供分析和修改Bean以及预先实例化的操作接口，不过目前只有一个 getBeanDefinition 方法。</li>
+</ul>
+<h3 id="2-资源加载接口定义和实现"><a href="#2-资源加载接口定义和实现" class="headerlink" title="2. 资源加载接口定义和实现"></a>2. 资源加载接口定义和实现</h3><p><strong>cn.bugstack.springframework.core.io.Resource</strong></p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Resource</span> </span>&#123;<br><br>    <span class="hljs-function">InputStream <span class="hljs-title">getInputStream</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>在 Spring 框架下创建 core.io 核心包，在这个包中主要用于处理资源加载流。</li>
+<li>定义 Resource 接口，提供获取 InputStream 流的方法，接下来再分别实现三种不同的流文件操作：classPath、FileSystem、URL</li>
+</ul>
+<p><strong>ClassPath</strong>：cn.bugstack.springframework.core.io.ClassPathResource</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><span class="hljs-keyword">public</span> <span class="hljs-title class_"><span class="hljs-keyword">class</span> <span class="hljs-title">ClassPathResource</span> <span class="hljs-keyword"><span class="hljs-keyword">implements</span> <span class="hljs-type">Resource</span></span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">String</span> path;<br><br>    <span class="hljs-keyword">private</span> ClassLoader classLoader;<br><br>    <span class="hljs-keyword">public</span> ClassPathResource(<span class="hljs-keyword">String</span> path) &#123;<br>        <span class="hljs-built_in">this</span>(path, (ClassLoader) <span class="hljs-literal">null</span>);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> ClassPathResource(<span class="hljs-keyword">String</span> path, ClassLoader classLoader) &#123;<br>        Assert.notNull(path, <span class="hljs-string">&quot;Path must not be null&quot;</span>);<br>        <span class="hljs-built_in">this</span>.path = path;<br>        <span class="hljs-built_in">this</span>.classLoader = (classLoader != <span class="hljs-literal">null</span> ? classLoader : <span class="hljs-type">ClassUtils</span>.getDefaultClassLoader());<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> InputStream getInputStream() throws IOException &#123;<br>        InputStream <span class="hljs-keyword">is</span> = classLoader.getResourceAsStream(path);<br>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">is</span> == <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-type">FileNotFoundException</span>(<br>                    <span class="hljs-built_in">this</span>.path + <span class="hljs-string">&quot; cannot be opened because it does not exist&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">is</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>这一部分的实现是用于通过 <code>ClassLoader</code> 读取<code>ClassPath</code> 下的文件信息，具体的读取过程主要是：<code>classLoader.getResourceAsStream(path)</code></li>
+</ul>
+<p><strong>FileSystem</strong>：cn.bugstack.springframework.core.io.FileSystemResource</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileSystemResource</span> implements Resource &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-built_in">File</span> file;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> path;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FileSystemResource</span><span class="hljs-params">(<span class="hljs-built_in">File</span> file)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.file = file;<br>        <span class="hljs-keyword">this</span>.path = file.<span class="hljs-built_in">getPath</span>();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FileSystemResource</span><span class="hljs-params">(<span class="hljs-type">String</span> path)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.file = <span class="hljs-keyword">new</span> <span class="hljs-built_in">File</span>(path);<br>        <span class="hljs-keyword">this</span>.path = path;<br>    &#125;<br><br>    @<span class="hljs-function">Override</span><br><span class="hljs-function">    <span class="hljs-keyword">public</span> InputStream <span class="hljs-title">getInputStream</span><span class="hljs-params">()</span> throws IOException </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">FileInputStream</span>(<span class="hljs-keyword">this</span>.file);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-title">getPath</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.path;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>通过指定文件路径的方式读取文件信息，这部分大家肯定还是非常熟悉的，经常会读取一些txt、excel文件输出到控制台。</li>
+</ul>
+<p><strong>Url</strong>：cn.bugstack.springframework.core.io.UrlResource</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UrlResource</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Resource</span></span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> URL url;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">UrlResource</span><span class="hljs-params">(URL url)</span> </span>&#123;<br>        Assert.notNull(url,<span class="hljs-string">&quot;URL must not be null&quot;</span>);<br>        <span class="hljs-keyword">this</span>.url = url;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-function">InputStream <span class="hljs-title">getInputStream</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>        URLConnection con = <span class="hljs-keyword">this</span>.url.openConnection();<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-function"><span class="hljs-keyword">return</span> con.<span class="hljs-title">getInputStream</span><span class="hljs-params">()</span></span>;<br>        &#125;<br>        <span class="hljs-keyword">catch</span> (IOException ex)&#123;<br>            <span class="hljs-keyword">if</span> (con <span class="hljs-keyword">instanceof</span> HttpURLConnection)&#123;<br>                ((HttpURLConnection) con).disconnect();<br>            &#125;<br>            <span class="hljs-keyword">throw</span> ex;<br>        &#125;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>通过 HTTP 的方式读取云服务的文件，我们也可以把配置文件放到 GitHub 或者 Gitee 上。</li>
+</ul>
+<h3 id="3-包装资源加载器"><a href="#3-包装资源加载器" class="headerlink" title="3. 包装资源加载器"></a>3. 包装资源加载器</h3><p>按照资源加载的不同方式，资源加载器可以把这些方式集中到统一的类服务下进行处理，外部用户只需要传递资源地址即可，简化使用。</p>
+<p><strong>定义接口</strong>：cn.bugstack.springframework.core.io.ResourceLoader</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><span class="hljs-keyword">public</span> <span class="hljs-title class_"><span class="hljs-keyword">interface</span> <span class="hljs-title">ResourceLoader</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Pseudo URL prefix for loading from the class path: &quot;classpath:&quot;</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">String</span> CLASSPATH_URL_PREFIX = <span class="hljs-string">&quot;classpath:&quot;</span>;<br><br>    Resource getResource(<span class="hljs-keyword">String</span> location);<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>定义获取资源接口，里面传递 location 地址即可。</li>
+</ul>
+<p><strong>实现接口</strong>：cn.bugstack.springframework.core.io.DefaultResourceLoader</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><span class="hljs-keyword">public</span> <span class="hljs-title class_"><span class="hljs-keyword">class</span> <span class="hljs-title">DefaultResourceLoader</span> <span class="hljs-keyword"><span class="hljs-keyword">implements</span> <span class="hljs-type">ResourceLoader</span></span> </span>&#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Resource getResource(<span class="hljs-keyword">String</span> location) &#123;<br>        Assert.notNull(location, <span class="hljs-string">&quot;Location must not be null&quot;</span>);<br>        <span class="hljs-keyword">if</span> (location.startsWith(CLASSPATH_URL_PREFIX)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-type">ClassPathResource</span>(location.substring(CLASSPATH_URL_PREFIX.length()));<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                URL url = <span class="hljs-keyword">new</span> <span class="hljs-type">URL</span>(location);<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-type">UrlResource</span>(url);<br>            &#125; <span class="hljs-keyword">catch</span> (MalformedURLException e) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-type">FileSystemResource</span>(location);<br>            &#125;<br>        &#125;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>在获取资源的实现中，主要是把三种不同类型的资源处理方式进行了包装，分为：判断是否为ClassPath、URL以及文件。</li>
+<li>虽然 DefaultResourceLoader 类实现的过程简单，但这也是设计模式约定的具体结果，像是这里不会让外部调用放知道过多的细节，而是仅关心具体调用结果即可。</li>
+</ul>
+<h3 id="4-Bean定义读取接口"><a href="#4-Bean定义读取接口" class="headerlink" title="4. Bean定义读取接口"></a>4. Bean定义读取接口</h3><p><strong>cn.bugstack.springframework.beans.factory.support.BeanDefinitionReader</strong></p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BeanDefinitionReader</span> </span>&#123;<br><br>    <span class="hljs-function">BeanDefinitionRegistry <span class="hljs-title">getRegistry</span><span class="hljs-params">()</span></span>;<br><br>    <span class="hljs-function">ResourceLoader <span class="hljs-title">getResourceLoader</span><span class="hljs-params">()</span></span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loadBeanDefinitions</span><span class="hljs-params">(Resource resource)</span> <span class="hljs-keyword">throws</span> BeansException</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loadBeanDefinitions</span><span class="hljs-params">(Resource... resources)</span> <span class="hljs-keyword">throws</span> BeansException</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loadBeanDefinitions</span><span class="hljs-params">(String location)</span> <span class="hljs-keyword">throws</span> BeansException</span>;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>这是一个 <em>Simple interface for bean definition readers.</em> 其实里面无非定义了几个方法，包括：getRegistry()、getResourceLoader()，以及三个加载Bean定义的方法。</li>
+<li>这里需要注意 getRegistry()、getResourceLoader()，都是用于提供给后面三个方法的工具，加载和注册，这两个方法的实现会包装到抽象类中，以免污染具体的接口实现方法。</li>
+</ul>
+<h3 id="5-Bean定义抽象类实现"><a href="#5-Bean定义抽象类实现" class="headerlink" title="5. Bean定义抽象类实现"></a>5. Bean定义抽象类实现</h3><p><strong>cn.bugstack.springframework.beans.factory.support.AbstractBeanDefinitionReader</strong></p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractBeanDefinitionReader</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">BeanDefinitionReader</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> BeanDefinitionRegistry registry;<br><br>    <span class="hljs-keyword">private</span> ResourceLoader resourceLoader;<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-title">AbstractBeanDefinitionReader</span><span class="hljs-params">(BeanDefinitionRegistry registry)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>(registry, <span class="hljs-keyword">new</span> DefaultResourceLoader());<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AbstractBeanDefinitionReader</span><span class="hljs-params">(BeanDefinitionRegistry registry, ResourceLoader resourceLoader)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.registry = registry;<br>        <span class="hljs-keyword">this</span>.resourceLoader = resourceLoader;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-function">BeanDefinitionRegistry <span class="hljs-title">getRegistry</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> registry;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-function">ResourceLoader <span class="hljs-title">getResourceLoader</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> resourceLoader;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>抽象类把 BeanDefinitionReader 接口的前两个方法全部实现完了，并提供了构造函数，让外部的调用使用方，把Bean定义注入类，传递进来。</li>
+<li>这样在接口 BeanDefinitionReader 的具体实现类中，就可以把解析后的 XML 文件中的 Bean 信息，注册到 Spring 容器去了。<em>以前我们是通过单元测试使用，调用 BeanDefinitionRegistry 完成Bean的注册，现在可以放到 XMl 中操作了</em></li>
+</ul>
+<h3 id="6-解析XML处理Bean注册"><a href="#6-解析XML处理Bean注册" class="headerlink" title="6. 解析XML处理Bean注册"></a>6. 解析XML处理Bean注册</h3><p><strong>cn.bugstack.springframework.beans.factory.xml.XmlBeanDefinitionReader</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">XmlBeanDefinitionReader</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AbstractBeanDefinitionReader</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">XmlBeanDefinitionReader</span><span class="hljs-params">(BeanDefinitionRegistry registry)</span> &#123;<br>        <span class="hljs-built_in">super</span>(registry);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">XmlBeanDefinitionReader</span><span class="hljs-params">(BeanDefinitionRegistry registry, ResourceLoader resourceLoader)</span> &#123;<br>        <span class="hljs-built_in">super</span>(registry, resourceLoader);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">loadBeanDefinitions</span><span class="hljs-params">(Resource resource)</span> <span class="hljs-keyword">throws</span> BeansException &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">try</span> (<span class="hljs-type">InputStream</span> <span class="hljs-variable">inputStream</span> <span class="hljs-operator">=</span> resource.getInputStream()) &#123;<br>                doLoadBeanDefinitions(inputStream);<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (IOException | ClassNotFoundException e) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BeansException</span>(<span class="hljs-string">&quot;IOException parsing XML document from &quot;</span> + resource, e);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">loadBeanDefinitions</span><span class="hljs-params">(Resource... resources)</span> <span class="hljs-keyword">throws</span> BeansException &#123;<br>        <span class="hljs-keyword">for</span> (Resource resource : resources) &#123;<br>            loadBeanDefinitions(resource);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">loadBeanDefinitions</span><span class="hljs-params">(String location)</span> <span class="hljs-keyword">throws</span> BeansException &#123;<br>        <span class="hljs-type">ResourceLoader</span> <span class="hljs-variable">resourceLoader</span> <span class="hljs-operator">=</span> getResourceLoader();<br>        <span class="hljs-type">Resource</span> <span class="hljs-variable">resource</span> <span class="hljs-operator">=</span> resourceLoader.getResource(location);<br>        loadBeanDefinitions(resource);<br>    &#125;<br><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doLoadBeanDefinitions</span><span class="hljs-params">(InputStream inputStream)</span> <span class="hljs-keyword">throws</span> ClassNotFoundException &#123;<br>        <span class="hljs-type">Document</span> <span class="hljs-variable">doc</span> <span class="hljs-operator">=</span> XmlUtil.readXML(inputStream);<br>        <span class="hljs-type">Element</span> <span class="hljs-variable">root</span> <span class="hljs-operator">=</span> doc.getDocumentElement();<br>        <span class="hljs-type">NodeList</span> <span class="hljs-variable">childNodes</span> <span class="hljs-operator">=</span> root.getChildNodes();<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; childNodes.getLength(); i++) &#123;<br>            <span class="hljs-comment">// 判断元素</span><br>            <span class="hljs-keyword">if</span> (!(childNodes.item(i) <span class="hljs-keyword">instanceof</span> Element)) <span class="hljs-keyword">continue</span>;<br>            <span class="hljs-comment">// 判断对象</span><br>            <span class="hljs-keyword">if</span> (!<span class="hljs-string">&quot;bean&quot;</span>.equals(childNodes.item(i).getNodeName())) <span class="hljs-keyword">continue</span>;<br>            <br>            <span class="hljs-comment">// 解析标签</span><br>            <span class="hljs-type">Element</span> <span class="hljs-variable">bean</span> <span class="hljs-operator">=</span> (Element) childNodes.item(i);<br>            <span class="hljs-type">String</span> <span class="hljs-variable">id</span> <span class="hljs-operator">=</span> bean.getAttribute(<span class="hljs-string">&quot;id&quot;</span>);<br>            <span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> bean.getAttribute(<span class="hljs-string">&quot;name&quot;</span>);<br>            <span class="hljs-type">String</span> <span class="hljs-variable">className</span> <span class="hljs-operator">=</span> bean.getAttribute(<span class="hljs-string">&quot;class&quot;</span>);<br>            <span class="hljs-comment">// 获取 Class，方便获取类中的名称</span><br>            Class&lt;?&gt; clazz = Class.forName(className);<br>            <span class="hljs-comment">// 优先级 id &gt; name</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">beanName</span> <span class="hljs-operator">=</span> StrUtil.isNotEmpty(id) ? id : name;<br>            <span class="hljs-keyword">if</span> (StrUtil.isEmpty(beanName)) &#123;<br>                beanName = StrUtil.lowerFirst(clazz.getSimpleName());<br>            &#125;<br><br>            <span class="hljs-comment">// 定义Bean</span><br>            <span class="hljs-type">BeanDefinition</span> <span class="hljs-variable">beanDefinition</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BeanDefinition</span>(clazz);<br>            <span class="hljs-comment">// 读取属性并填充</span><br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; bean.getChildNodes().getLength(); j++) &#123;<br>                <span class="hljs-keyword">if</span> (!(bean.getChildNodes().item(j) <span class="hljs-keyword">instanceof</span> Element)) <span class="hljs-keyword">continue</span>;<br>                <span class="hljs-keyword">if</span> (!<span class="hljs-string">&quot;property&quot;</span>.equals(bean.getChildNodes().item(j).getNodeName())) <span class="hljs-keyword">continue</span>;<br>                <span class="hljs-comment">// 解析标签：property</span><br>                <span class="hljs-type">Element</span> <span class="hljs-variable">property</span> <span class="hljs-operator">=</span> (Element) bean.getChildNodes().item(j);<br>                <span class="hljs-type">String</span> <span class="hljs-variable">attrName</span> <span class="hljs-operator">=</span> property.getAttribute(<span class="hljs-string">&quot;name&quot;</span>);<br>                <span class="hljs-type">String</span> <span class="hljs-variable">attrValue</span> <span class="hljs-operator">=</span> property.getAttribute(<span class="hljs-string">&quot;value&quot;</span>);<br>                <span class="hljs-type">String</span> <span class="hljs-variable">attrRef</span> <span class="hljs-operator">=</span> property.getAttribute(<span class="hljs-string">&quot;ref&quot;</span>);<br>                <span class="hljs-comment">// 获取属性值：引入对象、值对象</span><br>                <span class="hljs-type">Object</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> StrUtil.isNotEmpty(attrRef) ? <span class="hljs-keyword">new</span> <span class="hljs-title class_">BeanReference</span>(attrRef) : attrValue;<br>                <span class="hljs-comment">// 创建属性信息</span><br>                <span class="hljs-type">PropertyValue</span> <span class="hljs-variable">propertyValue</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PropertyValue</span>(attrName, value);<br>                beanDefinition.getPropertyValues().addPropertyValue(propertyValue);<br>            &#125;<br>            <span class="hljs-keyword">if</span> (getRegistry().containsBeanDefinition(beanName)) &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BeansException</span>(<span class="hljs-string">&quot;Duplicate beanName[&quot;</span> + beanName + <span class="hljs-string">&quot;] is not allowed&quot;</span>);<br>            &#125;<br>            <span class="hljs-comment">// 注册 BeanDefinition</span><br>            getRegistry().registerBeanDefinition(beanName, beanDefinition);<br>        &#125;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>XmlBeanDefinitionReader 类最核心的内容就是对 XML 文件的解析，把我们本来在代码中的操作放到了通过解析 XML 自动注册的方式。</p>
+<ul>
+<li>loadBeanDefinitions 方法，处理资源加载，这里新增加了一个内部方法：<code>doLoadBeanDefinitions</code>，它主要负责解析 xml</li>
+<li>在 doLoadBeanDefinitions 方法中，主要是对xml的读取 <code>XmlUtil.readXML(inputStream)</code> 和元素 Element 解析。在解析的过程中通过循环操作，以此获取 Bean 配置以及配置中的 id、name、class、value、ref 信息。</li>
+<li>最终把读取出来的配置信息，创建成 BeanDefinition 以及 PropertyValue，最终把完整的 Bean 定义内容注册到 Bean 容器：<code>getRegistry().registerBeanDefinition(beanName, beanDefinition)</code></li>
+</ul>
+<h2 id="四、测试"><a href="#四、测试" class="headerlink" title="四、测试"></a>四、测试</h2><h3 id="1-事先准备"><a href="#1-事先准备" class="headerlink" title="1. 事先准备"></a>1. 事先准备</h3><p><strong>cn.bugstack.springframework.test.bean.UserDao</strong></p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><span class="hljs-keyword">public</span> <span class="hljs-title class_"><span class="hljs-keyword">class</span> <span class="hljs-title">UserDao</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Map&lt;<span class="hljs-keyword">String</span>, <span class="hljs-keyword">String</span>&gt; hashMap = <span class="hljs-keyword">new</span> <span class="hljs-type">HashMap</span>&lt;&gt;();<br><br>    <span class="hljs-keyword">static</span> &#123;<br>        hashMap.put(<span class="hljs-string">&quot;10001&quot;</span>, <span class="hljs-string">&quot;小傅哥&quot;</span>);<br>        hashMap.put(<span class="hljs-string">&quot;10002&quot;</span>, <span class="hljs-string">&quot;八杯水&quot;</span>);<br>        hashMap.put(<span class="hljs-string">&quot;10003&quot;</span>, <span class="hljs-string">&quot;阿毛&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">String</span> queryUserName(<span class="hljs-keyword">String</span> uId) &#123;<br>        <span class="hljs-keyword">return</span> hashMap.<span class="hljs-keyword">get</span>(uId);<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>cn.bugstack.springframework.test.bean.UserService</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserService</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-title class_">String</span> uId;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-title class_">UserDao</span> userDao;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">queryUserInfo</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">return</span> userDao.<span class="hljs-title function_">queryUserName</span>(uId);<br>    &#125;<br><br>    <span class="hljs-comment">// ...get/set</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Dao、Service，是我们平常开发经常使用的场景。在 UserService 中注入 UserDao，这样就能体现出Bean属性的依赖了。</li>
+</ul>
+<h3 id="2-配置文件"><a href="#2-配置文件" class="headerlink" title="2. 配置文件"></a>2. 配置文件</h3><p><strong>important.properties</strong></p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># Config File</span><br><span class="hljs-attr">system.key</span>=OLpj9823dZ<br></code></pre></td></tr></table></figure>
+
+<p><strong>spring.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">beans</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;userDao&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cn.bugstack.springframework.test.bean.UserDao&quot;</span>/&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;userService&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;cn.bugstack.springframework.test.bean.UserService&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;uId&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;10001&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;userDao&quot;</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;userDao&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>这里有两份配置文件，一份用于测试资源加载器，另外 spring.xml 用于测试整体的 Bean 注册功能。</li>
+</ul>
+<h3 id="3-单元测试-资源加载"><a href="#3-单元测试-资源加载" class="headerlink" title="3. 单元测试(资源加载)"></a>3. 单元测试(资源加载)</h3><p><strong>案例</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> DefaultResourceLoader resourceLoader;      <br><br><span class="hljs-meta">@Before</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">init</span><span class="hljs-params">()</span> &#123;<br>    resourceLoader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DefaultResourceLoader</span>();<br>&#125;   <br><br><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test_classpath</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-type">Resource</span> <span class="hljs-variable">resource</span> <span class="hljs-operator">=</span> resourceLoader.getResource(<span class="hljs-string">&quot;classpath:important.properties&quot;</span>);<br>    <span class="hljs-type">InputStream</span> <span class="hljs-variable">inputStream</span> <span class="hljs-operator">=</span> resource.getInputStream();<br>    <span class="hljs-type">String</span> <span class="hljs-variable">content</span> <span class="hljs-operator">=</span> IoUtil.readUtf8(inputStream);<br>    System.out.println(content);<br>&#125;   <br><br><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test_file</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-type">Resource</span> <span class="hljs-variable">resource</span> <span class="hljs-operator">=</span> resourceLoader.getResource(<span class="hljs-string">&quot;src/test/resources/important.properties&quot;</span>);<br>    <span class="hljs-type">InputStream</span> <span class="hljs-variable">inputStream</span> <span class="hljs-operator">=</span> resource.getInputStream();<br>    <span class="hljs-type">String</span> <span class="hljs-variable">content</span> <span class="hljs-operator">=</span> IoUtil.readUtf8(inputStream);<br>    System.out.println(content);<br>&#125;    <br><br><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test_url</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-type">Resource</span> <span class="hljs-variable">resource</span> <span class="hljs-operator">=</span> resourceLoader.getResource(<span class="hljs-string">&quot;https://github.com/fuzhengwei/small-spring/important.properties&quot;</span><br>    <span class="hljs-type">InputStream</span> <span class="hljs-variable">inputStream</span> <span class="hljs-operator">=</span> resource.getInputStream();<br>    <span class="hljs-type">String</span> <span class="hljs-variable">content</span> <span class="hljs-operator">=</span> IoUtil.readUtf8(inputStream);<br>    System.out.println(content);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>测试结果</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># Config File</span><br>system.key=OLpj9823dZ<br><br>Process finished with <span class="hljs-keyword">exit</span> code <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>这三个方法：test_classpath、test_file、test_url，分别用于测试加载 ClassPath、FileSystem、Url 文件，<em>URL文件在Github，可能加载时会慢</em></li>
+</ul>
+<h3 id="4-单元测试-配置文件注册Bean"><a href="#4-单元测试-配置文件注册Bean" class="headerlink" title="4. 单元测试(配置文件注册Bean)"></a>4. 单元测试(配置文件注册Bean)</h3><p><strong>案例</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test_xml</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// 1.初始化 BeanFactory</span><br>    <span class="hljs-type">DefaultListableBeanFactory</span> <span class="hljs-variable">beanFactory</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DefaultListableBeanFactory</span>();<br><br>    <span class="hljs-comment">// 2. 读取配置文件&amp;注册Bean</span><br>    <span class="hljs-type">XmlBeanDefinitionReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">XmlBeanDefinitionReader</span>(beanFactory);<br>    reader.loadBeanDefinitions(<span class="hljs-string">&quot;classpath:spring.xml&quot;</span>);<br><br>    <span class="hljs-comment">// 3. 获取Bean对象调用方法</span><br>    <span class="hljs-type">UserService</span> <span class="hljs-variable">userService</span> <span class="hljs-operator">=</span> beanFactory.getBean(<span class="hljs-string">&quot;userService&quot;</span>, UserService.class);<br>    <span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> userService.queryUserInfo();<br>    System.out.println(<span class="hljs-string">&quot;测试结果：&quot;</span> + result);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>测试结果</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">测试结果：小傅哥<br><br>Process finished with <span class="hljs-keyword">exit</span> code <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>在上面的测试案例中可以看到，我们把以前通过手动注册 Bean 以及配置属性信息的内容，交给了 <code>new XmlBeanDefinitionReader(beanFactory)</code> 类读取 Spring.xml 的方式来处理，并通过了测试验证。</li>
+</ul>
+<h2 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h2><p>以配置文件为入口解析和注册 Bean 信息，最终再通过 Bean 工厂获取 Bean 以及做相应的调用操作</p>
+<p>[文章引用]: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzIxMDAwMDAxMw==&amp;mid=2650730645&amp;idx=1&amp;sn=70862b3f3ee482e03d56a5b68af710c6&amp;chksm=8f611177b8169861c5dff11d2b7f475af8e827c3e79764007e43c9a16566a16992ad8085b142&amp;cur_album_id=1871634116341743621&amp;scene=189&amp;poc_token=HC4VqGWjQ3nyOjH4FoQM0xRW_JSLa6TArN4RIjq-">https://mp.weixin.qq.com/s?__biz=MzIxMDAwMDAxMw==&amp;mid=2650730645&amp;idx=1&amp;sn=70862b3f3ee482e03d56a5b68af710c6&amp;chksm=8f611177b8169861c5dff11d2b7f475af8e827c3e79764007e43c9a16566a16992ad8085b142&amp;cur_album_id=1871634116341743621&amp;scene=189&amp;poc_token=HC4VqGWjQ3nyOjH4FoQM0xRW_JSLa6TArN4RIjq-</a>	“《Spring 手撸专栏》第 6 章：气吞山河，设计与实现资源加载器，从Spring.xml解析和注册Bean对象”</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%89%8B%E6%92%B8spring%E7%B3%BB%E5%88%97/" class="category-chain-item">手撸spring系列</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%BA%90%E7%A0%81/" class="print-no-link">#源码</a>
+      
+        <a href="/tags/spring/" class="print-no-link">#spring</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>手撸Spring：设计与实现资源加载器，从Spring.xml解析和注册Bean对象（Day5）</div>
+      <div>https://xsinxcos.github.io/2024/01/18/手撸Spring：day5/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>xsinxcos(涿)</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月18日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/10/%E6%89%8B%E6%92%B8Spring%EF%BC%9Aday4/" title="手撸Spring：为Bean对象注入属性和依赖Bean的功能实现（Day4）">
+                        <span class="hidden-mobile">手撸Spring：为Bean对象注入属性和依赖Bean的功能实现（Day4）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
