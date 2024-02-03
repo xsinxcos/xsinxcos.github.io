@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>计算机网络和因特网：网络边缘</title>
+    <link href="/2024/02/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%EF%BC%9A%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/"/>
+    <url>/2024/02/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%EF%BC%9A%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/</url>
+    
+    <content type="html"><![CDATA[<h2 id="网络边缘"><a href="#网络边缘" class="headerlink" title="网络边缘"></a>网络边缘</h2><p>网络边缘：<strong>与因特网相连的计算机和其他设备位于因特网的边缘</strong>，故而被称为网络边缘，又称端系统。</p><p>主机&#x2F;端系统可分为：</p><ul><li>客户端（client）</li><li>服务端（server）</li></ul><p><img src="/../img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240203223816912.png" alt="image-20240203223816912"></p><h4 id="1-1-接入网"><a href="#1-1-接入网" class="headerlink" title="1. 1 接入网"></a>1. 1 接入网</h4><p> 接入网：将端设备物理连接到其边缘路由器<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="边缘路由器：端系统到任何其他远程端系统的路径的第一台路由器">[1]</span></a></sup>的网络。</p><p><img src="/../img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240203231259515.png" alt="image-20240203231259515"></p><h4 id="1-2-物理媒介"><a href="#1-2-物理媒介" class="headerlink" title="1. 2 物理媒介"></a>1. 2 物理媒介</h4><p> <img src="/../img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240203231916389.png" alt="image-20240203231916389"></p><ul><li>导引型媒介：电波沿着固体媒介前行</li><li>非导引型媒介：电波在空气或外层空间中传播</li></ul><h5 id="拓展定义"><a href="#拓展定义" class="headerlink" title="拓展定义"></a>拓展定义</h5><p>数据中心：数据中心是全球协作的特定设备网络，用来在网络基础设施上传递、加速、展示、计算、存储数据信息，由成千上百个端系统组成。</p><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>边缘路由器：端系统到任何其他远程端系统的路径的第一台路由器<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
+    
+    
+    <categories>
+      
+      <category>计算机网络</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>计算机网络</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>计算机网络和因特网：什么是因特网</title>
     <link href="/2024/02/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%A0%E7%89%B9%E7%BD%91/"/>
     <url>/2024/02/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%A0%E7%89%B9%E7%BD%91/</url>
