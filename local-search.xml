@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>计算机网络和因特网:什么是因特网</title>
+    <link href="/2024/02/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/"/>
+    <url>/2024/02/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/</url>
+    
+    <content type="html"><![CDATA[<h2 id="什么是因特网（Internet）"><a href="#什么是因特网（Internet）" class="headerlink" title="什么是因特网（Internet）"></a>什么是因特网（Internet）</h2><p>可以从两个方面进行解释：</p><ul><li>因特网的具体构成，构成因特网的基本硬件和软件组件</li><li>分布式应用提供服务的联网基础设施</li></ul><p><img src="/../img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240203210420787.png" alt="image-20240203210420787"></p><h4 id="1-1-具体构成描述"><a href="#1-1-具体构成描述" class="headerlink" title="1. 1 具体构成描述"></a>1. 1 具体构成描述</h4><p>具体构成：主机&#x2F;端系统、通信链路、分组交换机、协议</p><p>主机&#x2F;端系统：<strong>连接到网络并进行通信的设备</strong>，可以是个人计算机、服务器、移动设备等。</p><p>通信链路：进行<strong>网络通信的物理媒介</strong>，如同轴电缆、铜线、光纤和无线电频谱，链路的传输速率以bit&#x2F;s 或 bps 进行度量。</p><p>分组交换机：将一条<strong>入通信链路</strong>接收到的分组<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="分组：在计算机网络中，数据通常会被分割成较小的块，称为分组">[1]</span></a></sup>，并从一条<strong>出通信链路</strong>进行转化该分组。常见的分组交换机有<strong>路由器</strong>和<strong>链路层交换机</strong>。</p><p>路径：从发送端到接收端，所经过的一系列的通信链路和分组交换机。</p><p>（注：端系统、分组交换机和其他因特网部件都要运行多个协议，这些<strong>协议控制因特网中的信息的接收和发送</strong>。）</p><p><img src="/../img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240203220020095.png" alt="image-20240203220020095"></p><h4 id="1-2-服务描述"><a href="#1-2-服务描述" class="headerlink" title="1. 2 服务描述"></a>1. 2 服务描述</h4><p>套接字接口（socket interface）：该接口规定了运行在一个端系统上的程序与另外一个端系统的特定目的地程序通过因特网基础设施进行数据交付的方式。</p><p><img src="/../img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240203221004219.png" alt="image-20240203221004219"></p><h4 id="1-3-什么是协议"><a href="#1-3-什么是协议" class="headerlink" title="1. 3 什么是协议"></a>1. 3 什么是协议</h4><p>协议：定义了在两个或多个通信实体之间交换的报文格式与顺序，以及报文的发送&#x2F;接收或其他事件所采取的操作。</p><p>（常见协议有网络层上的IP协议，传输层上的TCP、UDP协议，应用层上的http、websocket、sse、quic等协议）</p><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>分组：在计算机网络中，数据通常会被分割成较小的块，称为分组<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
+    
+    
+    <categories>
+      
+      <category>计算机网络</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>计算机网络</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>设计模式：策略模式</title>
     <link href="/2024/01/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/"/>
     <url>/2024/01/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</url>
