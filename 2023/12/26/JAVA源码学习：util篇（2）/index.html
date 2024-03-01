@@ -24,7 +24,7 @@
 <meta property="og:description" content="HashMap 特点：使用了数组＋链表＋红黑树实现，Node数组为table，使用（table.length - 1) &amp; hashcode（key）得到Node数组下标 初始容量：new出来后为空（空参），在添加了第一个元素后，自动扩容到16 最大容量：2^30 默认负载因子：0.75 链表转化树的默认阈值：链表长度大于8（至少为8），且表当前的容量不少于64 树转化链表的默认阈值：6（">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-26T13:34:00.000Z">
-<meta property="article:modified_time" content="2023-12-29T17:43:57.758Z">
+<meta property="article:modified_time" content="2024-03-01T16:19:31.753Z">
 <meta property="article:author" content="xsinxcos(涿)">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="源码">
@@ -291,8 +291,7 @@
 <li>去重方式：依赖hashmap中key唯一的特点，进行去重，通过map.put(e, PRESENT)的方式进行添加（PRESENT的hash值在同一个HashSet是唯一的）</li>
 </ul>
 <hr>
-<h4 id="HashTable"><a href="#HashTable" class="headerlink" title="HashTable"></a>HashTable</h4><p>HashTable</p>
-<ul>
+<h3 id="HashTable"><a href="#HashTable" class="headerlink" title="HashTable"></a>HashTable</h3><ul>
 <li><p>特点：</p>
 <ol>
 <li><p>使用数组＋链表的实现方式，解决哈希冲突的方法为链地址法，且不会转化为红黑树，性能较hashmap来说比较差；</p>
