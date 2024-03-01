@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>JAVA源码学习：lang篇（1）</title>
+    <link href="/2024/03/01/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%9Alang%E7%AF%87%EF%BC%881%EF%BC%89/"/>
+    <url>/2024/03/01/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%9Alang%E7%AF%87%EF%BC%881%EF%BC%89/</url>
+    
+    <content type="html"><![CDATA[<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><ul><li><em>class</em> 类被 <em>final</em> 修饰，无法被继承</li><li>在 <em>jdk</em>1.8 之前及 <em>jdk</em>1.8 底层使用 <em>char</em> 数组进行存储，在 <em>jdk</em>1.8 之后使用 <em>byte</em> 数组进行存储</li></ul><hr><h3 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h3><ul><li>特点：可变长度的字符串，同样被final修饰，底层是使用 <em>char</em> 数组或者 <em>byte</em> 数组进行存储，线程不安全</li><li>初始容量：空参构造时容量为16。有参构造时，当参数为 <em>int</em> 则容量为参数值，当参数为 <em>String</em> 类型或 <em>CharSequence</em> 类型时则初始容量为 <em>String.length()</em> + 16。</li><li>自动扩容机制：当 <em>String Builder</em> 中的 <em>char</em> 或 <em>byte</em> 数组容量充足时，则自动将需要拼接的字符串置于数组中进行拼接；如果数组容量不足时，则通过计算得出数组最小需要长度，并将旧数据 <em>copy</em> 一份置于新数组，再进行拼接</li></ul><hr><h3 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h3><ul><li>特点：可变长度的字符串，同样被final修饰，底层是使用 <em>char</em> 数组或者 <em>byte</em> 数组进行存储，但是线程安全，但是方法使用 <em>synchronized</em> 关键字进行修饰，效率较差</li><li>初始容量：与 <em>StringBuilder</em> 相同</li><li>自动扩容机制：与 <em>StringBuilder</em> 相同</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>JAVA核心源码</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+      <tag>源码</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>计算机网络和因特网：网络边缘</title>
     <link href="/2024/02/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%EF%BC%9A%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/"/>
     <url>/2024/02/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%EF%BC%9A%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/</url>

@@ -16,26 +16,23 @@
   <meta name="author" content="xsinxcos(涿)">
   <meta name="keywords" content="">
   
-    <meta name="description" content="网络边缘网络边缘：与因特网相连的计算机和其他设备位于因特网的边缘，故而被称为网络边缘，又称端系统。 主机&#x2F;端系统可分为：  客户端（client） 服务端（server）   1. 1 接入网 接入网：将端设备物理连接到其边缘路由器[1]的网络。  1. 2 物理媒介   导引型媒介：电波沿着固体媒介前行 非导引型媒介：电波在空气或外层空间中传播  拓展定义数据中心：数据中心是全球协作的">
+    <meta name="description" content="String class 类被 final 修饰，无法被继承 在 jdk1.8 之前及 jdk1.8 底层使用 char 数组进行存储，在 jdk1.8 之后使用 byte 数组进行存储   StringBuilder 特点：可变长度的字符串，同样被final修饰，底层是使用 char 数组或者 byte 数组进行存储，线程不安全 初始容量：空参构造时容量为16。有参构造时，当参数为 int 则容">
 <meta property="og:type" content="article">
-<meta property="og:title" content="计算机网络和因特网：网络边缘">
-<meta property="og:url" content="https://xsinxcos.github.io/2024/02/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%EF%BC%9A%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/index.html">
+<meta property="og:title" content="JAVA源码学习：lang篇（1）">
+<meta property="og:url" content="https://xsinxcos.github.io/2024/03/01/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%9Alang%E7%AF%87%EF%BC%881%EF%BC%89/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="网络边缘网络边缘：与因特网相连的计算机和其他设备位于因特网的边缘，故而被称为网络边缘，又称端系统。 主机&#x2F;端系统可分为：  客户端（client） 服务端（server）   1. 1 接入网 接入网：将端设备物理连接到其边缘路由器[1]的网络。  1. 2 物理媒介   导引型媒介：电波沿着固体媒介前行 非导引型媒介：电波在空气或外层空间中传播  拓展定义数据中心：数据中心是全球协作的">
+<meta property="og:description" content="String class 类被 final 修饰，无法被继承 在 jdk1.8 之前及 jdk1.8 底层使用 char 数组进行存储，在 jdk1.8 之后使用 byte 数组进行存储   StringBuilder 特点：可变长度的字符串，同样被final修饰，底层是使用 char 数组或者 byte 数组进行存储，线程不安全 初始容量：空参构造时容量为16。有参构造时，当参数为 int 则容">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://xsinxcos.github.io/img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240203223816912.png">
-<meta property="og:image" content="https://xsinxcos.github.io/img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240203231259515.png">
-<meta property="og:image" content="https://xsinxcos.github.io/img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240203231916389.png">
-<meta property="article:published_time" content="2024-02-03T15:22:00.000Z">
-<meta property="article:modified_time" content="2024-02-03T15:22:13.806Z">
+<meta property="article:published_time" content="2024-03-01T13:34:00.000Z">
+<meta property="article:modified_time" content="2024-03-01T16:18:41.483Z">
 <meta property="article:author" content="xsinxcos(涿)">
-<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="源码">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://xsinxcos.github.io/img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240203223816912.png">
   
   
   
-  <title>计算机网络和因特网：网络边缘 - Hexo</title>
+  <title>JAVA源码学习：lang篇（1） - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -201,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="计算机网络和因特网：网络边缘"></span>
+            <span id="subtitle" data-typed-text="JAVA源码学习：lang篇（1）"></span>
           
         </div>
 
@@ -212,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-02-03 23:22" pubdate>
-          2024年2月3日 晚上
+        <time datetime="2024-03-01 21:34" pubdate>
+          2024年3月1日 晚上
         </time>
       </span>
     
@@ -224,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          216 字
+          282 字
         
       </span>
     
@@ -235,7 +232,7 @@
         
         
         
-          2 分钟
+          3 分钟
         
       </span>
     
@@ -272,28 +269,28 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">计算机网络和因特网：网络边缘</h1>
+            <h1 id="seo-header">JAVA源码学习：lang篇（1）</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="网络边缘"><a href="#网络边缘" class="headerlink" title="网络边缘"></a>网络边缘</h2><p>网络边缘：<strong>与因特网相连的计算机和其他设备位于因特网的边缘</strong>，故而被称为网络边缘，又称端系统。</p>
-<p>主机&#x2F;端系统可分为：</p>
-<ul>
-<li>客户端（client）</li>
-<li>服务端（server）</li>
+                <h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><ul>
+<li><em>class</em> 类被 <em>final</em> 修饰，无法被继承</li>
+<li>在 <em>jdk</em>1.8 之前及 <em>jdk</em>1.8 底层使用 <em>char</em> 数组进行存储，在 <em>jdk</em>1.8 之后使用 <em>byte</em> 数组进行存储</li>
 </ul>
-<p><img src="/../img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240203223816912.png" srcset="/img/loading.gif" lazyload alt="image-20240203223816912"></p>
-<h4 id="1-1-接入网"><a href="#1-1-接入网" class="headerlink" title="1. 1 接入网"></a>1. 1 接入网</h4><p> 接入网：将端设备物理连接到其边缘路由器<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="边缘路由器：端系统到任何其他远程端系统的路径的第一台路由器">[1]</span></a></sup>的网络。</p>
-<p><img src="/../img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240203231259515.png" srcset="/img/loading.gif" lazyload alt="image-20240203231259515"></p>
-<h4 id="1-2-物理媒介"><a href="#1-2-物理媒介" class="headerlink" title="1. 2 物理媒介"></a>1. 2 物理媒介</h4><p> <img src="/../img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240203231916389.png" srcset="/img/loading.gif" lazyload alt="image-20240203231916389"></p>
-<ul>
-<li>导引型媒介：电波沿着固体媒介前行</li>
-<li>非导引型媒介：电波在空气或外层空间中传播</li>
+<hr>
+<h3 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h3><ul>
+<li>特点：可变长度的字符串，同样被final修饰，底层是使用 <em>char</em> 数组或者 <em>byte</em> 数组进行存储，线程不安全</li>
+<li>初始容量：空参构造时容量为16。有参构造时，当参数为 <em>int</em> 则容量为参数值，当参数为 <em>String</em> 类型或 <em>CharSequence</em> 类型时则初始容量为 <em>String.length()</em> + 16。</li>
+<li>自动扩容机制：当 <em>String Builder</em> 中的 <em>char</em> 或 <em>byte</em> 数组容量充足时，则自动将需要拼接的字符串置于数组中进行拼接；如果数组容量不足时，则通过计算得出数组最小需要长度，并将旧数据 <em>copy</em> 一份置于新数组，再进行拼接</li>
 </ul>
-<h5 id="拓展定义"><a href="#拓展定义" class="headerlink" title="拓展定义"></a>拓展定义</h5><p>数据中心：数据中心是全球协作的特定设备网络，用来在网络基础设施上传递、加速、展示、计算、存储数据信息，由成千上百个端系统组成。</p>
-<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>边缘路由器：端系统到任何其他远程端系统的路径的第一台路由器
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<hr>
+<h3 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h3><ul>
+<li>特点：可变长度的字符串，同样被final修饰，底层是使用 <em>char</em> 数组或者 <em>byte</em> 数组进行存储，但是线程安全，但是方法使用 <em>synchronized</em> 关键字进行修饰，效率较差</li>
+<li>初始容量：与 <em>StringBuilder</em> 相同</li>
+<li>自动扩容机制：与 <em>StringBuilder</em> 相同</li>
+</ul>
+
                 
               </div>
             
@@ -311,7 +308,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="category-chain-item">计算机网络</a>
+  <a href="/categories/JAVA%E6%A0%B8%E5%BF%83%E6%BA%90%E7%A0%81/" class="category-chain-item">JAVA核心源码</a>
   
   
 
@@ -326,7 +323,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
+        <a href="/tags/java/" class="print-no-link">#java</a>
+      
+        <a href="/tags/%E6%BA%90%E7%A0%81/" class="print-no-link">#源码</a>
       
     </div>
   
@@ -338,8 +337,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>计算机网络和因特网：网络边缘</div>
-      <div>https://xsinxcos.github.io/2024/02/03/计算机网络和因特网：网络边缘/</div>
+      <div>JAVA源码学习：lang篇（1）</div>
+      <div>https://xsinxcos.github.io/2024/03/01/JAVA源码学习：lang篇（1）/</div>
     </div>
     <div class="license-meta">
       
@@ -351,7 +350,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年2月3日</div>
+          <div>2024年3月1日</div>
         </div>
       
       
@@ -383,18 +382,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/03/01/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%9Alang%E7%AF%87%EF%BC%881%EF%BC%89/" title="JAVA源码学习：lang篇（1）">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JAVA源码学习：lang篇（1）</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/02/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%A0%E7%89%B9%E7%BD%91/" title="计算机网络和因特网：什么是因特网">
-                        <span class="hidden-mobile">计算机网络和因特网：什么是因特网</span>
+                      <a href="/2024/02/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%EF%BC%9A%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/" title="计算机网络和因特网：网络边缘">
+                        <span class="hidden-mobile">计算机网络和因特网：网络边缘</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
