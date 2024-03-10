@@ -1,0 +1,692 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xsinxcos(涿)">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="网络核心网络核心：网络核心即由互联因特网端系统的分组交换机和链路构成的网状网络。 1.1 分组交换 报文（message）：端系统彼此交换报文，包含该应用的设计者需要的任何东西。报文可以执行一种控制功能，也可以包含数据  分组（packet）：为了从源端系统向目的端系统发送发送一个报文，源将长报文划分为较小的数据块，称为分组  分组交换机（packet switch）：每个分组通过通信链路和分组交">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络和因特网：网络核心">
+<meta property="og:url" content="https://xsinxcos.github.io/2024/03/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%EF%BC%9A%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="网络核心网络核心：网络核心即由互联因特网端系统的分组交换机和链路构成的网状网络。 1.1 分组交换 报文（message）：端系统彼此交换报文，包含该应用的设计者需要的任何东西。报文可以执行一种控制功能，也可以包含数据  分组（packet）：为了从源端系统向目的端系统发送发送一个报文，源将长报文划分为较小的数据块，称为分组  分组交换机（packet switch）：每个分组通过通信链路和分组交">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xsinxcos.github.io/img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240309235220588.png">
+<meta property="og:image" content="https://xsinxcos.github.io/img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240309235100557.png">
+<meta property="og:image" content="https://xsinxcos.github.io/img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240310151246840.png">
+<meta property="article:published_time" content="2024-03-09T15:22:00.000Z">
+<meta property="article:modified_time" content="2024-03-10T07:30:11.938Z">
+<meta property="article:author" content="xsinxcos(涿)">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xsinxcos.github.io/img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240309235220588.png">
+  
+  
+  
+  <title>计算机网络和因特网：网络核心 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xsinxcos.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>XSINXCOS(涿)</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/p2.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="计算机网络和因特网：网络核心"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-09 23:22" pubdate>
+          2024年3月9日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          15 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">计算机网络和因特网：网络核心</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="网络核心"><a href="#网络核心" class="headerlink" title="网络核心"></a>网络核心</h2><p>网络核心：网络核心即由互联因特网端系统的分组交换机和链路构成的网状网络。</p>
+<h4 id="1-1-分组交换"><a href="#1-1-分组交换" class="headerlink" title="1.1 分组交换"></a>1.1 分组交换</h4><ul>
+<li><p><strong>报文（message）</strong>：端系统彼此交换<strong>报文</strong>，包含该应用的设计者需要的任何东西。报文可以执行一种控制功能，也可以包含数据</p>
+</li>
+<li><p><strong>分组（packet）</strong>：为了从源端系统向目的端系统发送发送一个报文，源将长报文划分为较小的数据块，称为<strong>分组</strong></p>
+</li>
+<li><p><strong>分组交换机（packet switch）</strong>：每个分组通过通信链路和<strong>分组交换机</strong>进行传送</p>
+<p>传输分组时间：L <em>bit</em> 的分组 &#x2F; R <em>bit</em> 的链路传输速率</p>
+</li>
+</ul>
+<p><img src="/../img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240309235220588.png" srcset="/img/loading.gif" lazyload alt="image-20240309235220588"></p>
+<p><img src="/../img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240309235100557.png" srcset="/img/loading.gif" lazyload alt="image-20240309235100557"></p>
+<h5 id="1-存储转发传输"><a href="#1-存储转发传输" class="headerlink" title="1. 存储转发传输"></a>1. 存储转发传输</h5><ul>
+<li><strong>存储转发传输（store-and-forword transmission）</strong>：存储转发传输是指在交换机开始向输出链路传输该分组的第一个比特之前，必须接收到整个分组。在传输分组时，必须先缓存（即<strong>”存储“</strong>）该分组的比特，仅当路由器&#x2F;链路层交换机已经接收完该分组的所有比特后，它才能开始向链路传输（即<strong>”转发“</strong>）该分组</li>
+</ul>
+<h5 id="2-排队时延和分组丢失"><a href="#2-排队时延和分组丢失" class="headerlink" title="2. 排队时延和分组丢失"></a>2. 排队时延和分组丢失</h5><ul>
+<li><strong>输出缓存（output buffer）&#x2F;输出队列（output queue）</strong>：对于每条相连的链路，该分组交换机具有一个<strong>输出缓存</strong>，它用户存储路由器准备发往那条链路的分组</li>
+<li><strong>排队时延（queuing delay）</strong>：链路忙于传输其他分组，该分组在输出缓存中产生的等待时间</li>
+<li><strong>分组丢失（packet loss）</strong>：因为分组交换机的缓存空间是有限的，一个到达的分组可能发现该缓存被其他分组占满，在此情况下将出现<strong>分组丢失（丢包）</strong>，到达的分组或者已经排队的分组之一将被丢弃</li>
+</ul>
+<h5 id="3-转发表和路由选择协议"><a href="#3-转发表和路由选择协议" class="headerlink" title="3. 转发表和路由选择协议"></a>3. 转发表和路由选择协议</h5><p>​	每个端系统具有一个称为IP地址的地址。当源主机要向目的端系统发送一个分组时，源在该分组的首部中包含了目的地的IP地址</p>
+<ul>
+<li><strong>转发表（forwarding table）</strong> ：每台路由器具有一个<strong>转发表</strong>用于将目的地址（或目的地址的一部分）映射成输出链路。当某分组到达路由器时，路由器检查其地址，并搜索转发表，发现相应的出链路</li>
+<li><strong>路由选择协议（routing protocol）</strong>：用于自动地设置这些转发表。通过决定每台路由器到每个目的地的最短路径，使用最短路径结果来配置路由器中的转发表</li>
+</ul>
+<h4 id="1-2-电路交换"><a href="#1-2-电路交换" class="headerlink" title="1.2 电路交换"></a>1.2 电路交换</h4><p>两台主机要通信时，该网络在两台主机之间创建一条专用的<strong>端到端连接</strong></p>
+<h5 id="电路交换网络中的复用"><a href="#电路交换网络中的复用" class="headerlink" title="电路交换网络中的复用"></a>电路交换网络中的复用</h5><ul>
+<li><strong>频分复用（FDM）</strong>：链路的频谱由跨越链路创建的所有连接共享。特别的，在连接期间链路为每条连接专设一个频段</li>
+<li><strong>时分复用（TDM）</strong>：将时间划分成固定时段的帧，并且每个帧又被划分固定数量的时隙。</li>
+<li>存在<strong>静默期</strong></li>
+</ul>
+<h4 id="1-3-网络的网络"><a href="#1-3-网络的网络" class="headerlink" title="1.3 网络的网络"></a>1.3 网络的网络</h4><p><img src="/../img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240310151246840.png" srcset="/img/loading.gif" lazyload alt="image-20240310151246840"></p>
+<ul>
+<li><strong>因特网交换点（IXP）</strong>：<strong>IXP</strong> 是一个汇合点，多个 ISP 能够在这里一起对等</li>
+</ul>
+<h4 id="相关习题"><a href="#相关习题" class="headerlink" title="相关习题"></a>相关习题</h4><ul>
+<li><strong>R11.  假定在发送主机和接收主机间只有一台分组交换机。发送主机和交换机间以及交换机和接收主机间的传输速率分别是R1和R2。假设该交换机使用存储转发分组交换方式，发送一个长度为L的分组的端到端总时延是什么？（忽略排队时延、传播时延和处理时延）</strong><br>答：L &#x2F; R1 + L &#x2F; R2</li>
+<li><strong>R12. 与分组交换网络相比，电路交换网络有哪些优点？在电路交换网络中，TDM比FDM有哪些优点？</strong><br>答：电路交换网络适合实时服务。交付质量高。<br>TDM比FDM的优点如下：（来源于网络）</li>
+</ul>
+<ol>
+<li>当发生拥塞等网络问题时，TDM中的数据丢失可能只会是一部分，而FDM中就可能是大部分或全部。</li>
+<li>TDM适合数字信号传输，而FDM适合模拟信号传输，因为现在通信网络多是传输数字信号，所以TDM比FDM好。</li>
+<li>因为频分复用连接建立后，当中途没有数据传输时，他所占有的频段带宽不能被其他连接使用，故可能存在空置，而在时分复用的统计时分模式下，连接建立后，当某个连接暂时不用传输数据时可以少分时间片或者不分，即其时隙的分配时“按需分配”，这样就让出了相应的传输时间给其他连接。</li>
+</ol>
+<ul>
+<li><strong>R13. 假定用户共享一条2Mbps链路。同时假定当每个用户传输时连续以1Mbps传输，但每个用户仅传输20%的时间。<br>a. 当使用电路交换时，能够支持多少用户？<br>b. 作为该题的遗留问题，假定使用分组交换。为什么如果两个或更少的用户同时传输的话，在链路前面基本没有排队时延？为什么如果3个用户同时传输的话，将会有排队时延？<br>c. 求出某指定用户正在传输的概率。<br>d. 假定现在有3个用户。求出在任何给定时间，所有3个用户在同时传输的概率。求出队列增长的时间比率。</strong><br>答：<br>a.  2Mbps &#x2F; 1 Mbps &#x3D; 2 ，能够支持2位用户<br>b. 如果两个或更少的用户在传输，即使它们同时传输，也仅仅完全占用了2Mbps链路，不会造成排队。如果有3个用户同时传输，需要3Mbps，而此时链路只有2Mbps，因此将会有排队时延。<br>c.指定用户正在传输的概率为20%。<br>d.在任何给定的时间，所有三个用户同时传输的概率为0.2<em>0.2</em>0.2&#x3D;0.008。因为只有三个用户时，队列才会增长，所以队列增长的时间比率为0.008。</li>
+<li><strong>R14. 为什么在等级结构相同级别的两个ISP通常互相对等？某IXP是如何挣钱的？</strong><br>答：因为它们之间的所有流量可以直接连接而不是通过上游的ISP传输。<br>IXP可以通过交换的流量对ISP收费。</li>
+<li><strong>R15. 某些内容提供商构建了自己的网络。描述谷歌的网络。内容提供商构建这些网络的动机是什么？</strong><br>答：谷歌的网络：在本书写作的时候，谷歌估计有30-50个数据中心。谷歌的数据中心经过专用的TCP&#x2F;IP网络互连，该网络跨越全球，但仍然独立于公共因特网。<br>内容提供商构建这些网络的动机是：直接与较低层ISP对接，减少向ISP支付的费用。对其服务最终如何交付给端用户有了更多的控制。</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="category-chain-item">计算机网络</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>计算机网络和因特网：网络核心</div>
+      <div>https://xsinxcos.github.io/2024/03/09/计算机网络和因特网：网络核心/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>xsinxcos(涿)</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/04/JAVA%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9F%E8%AF%A5%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%EF%BC%9F/" title="JAVA为什么需要线程池？该如何实现？">
+                        <span class="hidden-mobile">JAVA为什么需要线程池？该如何实现？</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
