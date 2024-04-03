@@ -386,7 +386,7 @@
   
   
   <entry>
-    <title>：LinkedHashMap、LinkedHashSet、LinkedList</title>
+    <title>LinkedHashMap、LinkedHashSet、LinkedList</title>
     <link href="/2023/12/26/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%9Autil%E7%AF%87%EF%BC%883%EF%BC%89/"/>
     <url>/2023/12/26/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%9Autil%E7%AF%87%EF%BC%883%EF%BC%89/</url>
     
@@ -397,7 +397,7 @@
       
       <category>JAVA核心源码</category>
       
-      <category>Util篇</category>
+      <category>util篇</category>
       
     </categories>
     
