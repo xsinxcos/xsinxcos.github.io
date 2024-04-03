@@ -18,13 +18,13 @@
   
     <meta name="description" content="String class 类被 final 修饰，无法被继承 在 jdk1.8 之前及 jdk1.8 底层使用 char 数组进行存储，在 jdk1.8 之后使用 byte 数组进行存储   StringBuilder 特点：可变长度的字符串，同样被final修饰，底层是使用 char 数组或者 byte 数组进行存储，线程不安全 初始容量：空参构造时容量为16。有参构造时，当参数为 int 则容">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JAVA源码学习：lang篇（1）">
+<meta property="og:title" content="String、StringBuilder、StringBuffer">
 <meta property="og:url" content="https://xsinxcos.github.io/2024/03/01/JAVA%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%EF%BC%9Alang%E7%AF%87%EF%BC%881%EF%BC%89/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="String class 类被 final 修饰，无法被继承 在 jdk1.8 之前及 jdk1.8 底层使用 char 数组进行存储，在 jdk1.8 之后使用 byte 数组进行存储   StringBuilder 特点：可变长度的字符串，同样被final修饰，底层是使用 char 数组或者 byte 数组进行存储，线程不安全 初始容量：空参构造时容量为16。有参构造时，当参数为 int 则容">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-01T13:34:00.000Z">
-<meta property="article:modified_time" content="2024-03-01T16:18:41.483Z">
+<meta property="article:modified_time" content="2024-04-03T10:26:15.079Z">
 <meta property="article:author" content="xsinxcos(涿)">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="源码">
@@ -32,7 +32,7 @@
   
   
   
-  <title>JAVA源码学习：lang篇（1） - Hexo</title>
+  <title>String、StringBuilder、StringBuffer - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="JAVA源码学习：lang篇（1）"></span>
+            <span id="subtitle" data-typed-text="String、StringBuilder、StringBuffer"></span>
           
         </div>
 
@@ -269,7 +269,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">JAVA源码学习：lang篇（1）</h1>
+            <h1 id="seo-header">String、StringBuilder、StringBuffer</h1>
             
             
               <div class="markdown-body">
@@ -311,6 +311,13 @@
   <a href="/categories/JAVA%E6%A0%B8%E5%BF%83%E6%BA%90%E7%A0%81/" class="category-chain-item">JAVA核心源码</a>
   
   
+    <span>></span>
+    
+  <a href="/categories/JAVA%E6%A0%B8%E5%BF%83%E6%BA%90%E7%A0%81/lang%E7%AF%87/" class="category-chain-item">lang篇</a>
+  
+  
+
+  
 
       </span>
     
@@ -337,7 +344,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>JAVA源码学习：lang篇（1）</div>
+      <div>String、StringBuilder、StringBuffer</div>
       <div>https://xsinxcos.github.io/2024/03/01/JAVA源码学习：lang篇（1）/</div>
     </div>
     <div class="license-meta">
