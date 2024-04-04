@@ -16,26 +16,28 @@
   <meta name="author" content="xsinxcos(涿)">
   <meta name="keywords" content="">
   
-    <meta name="description" content="网络核心网络核心：网络核心即由互联因特网端系统的分组交换机和链路构成的网状网络。 1.1 分组交换 报文（message）：端系统彼此交换报文，包含该应用的设计者需要的任何东西。报文可以执行一种控制功能，也可以包含数据  分组（packet）：为了从源端系统向目的端系统发送发送一个报文，源将长报文划分为较小的数据块，称为分组  分组交换机（packet switch）：每个分组通过通信链路和分组交">
+    <meta name="description" content="代理模式在代理模式（Proxy Pattern）中，一个类代表另一个类的功能。这种类型的设计模式属于结构型模式。在代理模式中，我们创建具有现有对象的对象，以便向外界提供功能接口。 介绍意图：为其他对象提供一种代理以控制对这个对象的访问。 主要解决：在直接访问对象时带来的问题，比如说：要访问的对象在远程的机器上。在面向对象系统中，有些对象由于某些原因（比如对象创建开销很大，或者某些操作需要安全控制，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="计算机网络和因特网：网络核心">
-<meta property="og:url" content="https://xsinxcos.github.io/2024/03/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%EF%BC%9A%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83/index.html">
+<meta property="og:title" content="设计模式：代理模式">
+<meta property="og:url" content="https://xsinxcos.github.io/2024/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="网络核心网络核心：网络核心即由互联因特网端系统的分组交换机和链路构成的网状网络。 1.1 分组交换 报文（message）：端系统彼此交换报文，包含该应用的设计者需要的任何东西。报文可以执行一种控制功能，也可以包含数据  分组（packet）：为了从源端系统向目的端系统发送发送一个报文，源将长报文划分为较小的数据块，称为分组  分组交换机（packet switch）：每个分组通过通信链路和分组交">
+<meta property="og:description" content="代理模式在代理模式（Proxy Pattern）中，一个类代表另一个类的功能。这种类型的设计模式属于结构型模式。在代理模式中，我们创建具有现有对象的对象，以便向外界提供功能接口。 介绍意图：为其他对象提供一种代理以控制对这个对象的访问。 主要解决：在直接访问对象时带来的问题，比如说：要访问的对象在远程的机器上。在面向对象系统中，有些对象由于某些原因（比如对象创建开销很大，或者某些操作需要安全控制，">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://xsinxcos.github.io/img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240309235220588.png">
-<meta property="og:image" content="https://xsinxcos.github.io/img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240309235100557.png">
-<meta property="og:image" content="https://xsinxcos.github.io/img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240310151246840.png">
-<meta property="article:published_time" content="2024-03-09T15:22:00.000Z">
-<meta property="article:modified_time" content="2024-04-03T10:18:48.449Z">
+<meta property="og:image" content="https://xsinxcos.github.io/img/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20240404195034972.png">
+<meta property="og:image" content="https://xsinxcos.github.io/img/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20240404194630768.png">
+<meta property="og:image" content="https://xsinxcos.github.io/img/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20240404200723259.png">
+<meta property="og:image" content="https://xsinxcos.github.io/img/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20240404202401008.png">
+<meta property="og:image" content="https://xsinxcos.github.io/img/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20240404203513475.png">
+<meta property="article:published_time" content="2024-04-03T10:32:00.000Z">
+<meta property="article:modified_time" content="2024-04-04T12:39:01.414Z">
 <meta property="article:author" content="xsinxcos(涿)">
-<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://xsinxcos.github.io/img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240309235220588.png">
+<meta name="twitter:image" content="https://xsinxcos.github.io/img/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20240404195034972.png">
   
   
   
-  <title>计算机网络和因特网：网络核心 - Hexo</title>
+  <title>设计模式：代理模式 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -201,7 +203,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="计算机网络和因特网：网络核心"></span>
+            <span id="subtitle" data-typed-text="设计模式：代理模式"></span>
           
         </div>
 
@@ -212,8 +214,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-09 23:22" pubdate>
-          2024年3月9日 晚上
+        <time datetime="2024-04-03 18:32" pubdate>
+          2024年4月3日 晚上
         </time>
       </span>
     
@@ -224,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          1.1k 字
         
       </span>
     
@@ -235,7 +237,7 @@
         
         
         
-          15 分钟
+          10 分钟
         
       </span>
     
@@ -272,59 +274,71 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">计算机网络和因特网：网络核心</h1>
+            <h1 id="seo-header">设计模式：代理模式</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="网络核心"><a href="#网络核心" class="headerlink" title="网络核心"></a>网络核心</h2><p>网络核心：网络核心即由互联因特网端系统的分组交换机和链路构成的网状网络。</p>
-<h4 id="1-1-分组交换"><a href="#1-1-分组交换" class="headerlink" title="1.1 分组交换"></a>1.1 分组交换</h4><ul>
-<li><p><strong>报文（message）</strong>：端系统彼此交换<strong>报文</strong>，包含该应用的设计者需要的任何东西。报文可以执行一种控制功能，也可以包含数据</p>
-</li>
-<li><p><strong>分组（packet）</strong>：为了从源端系统向目的端系统发送发送一个报文，源将长报文划分为较小的数据块，称为<strong>分组</strong></p>
-</li>
-<li><p><strong>分组交换机（packet switch）</strong>：每个分组通过通信链路和<strong>分组交换机</strong>进行传送</p>
-<p>传输分组时间：L <em>bit</em> 的分组 &#x2F; R <em>bit</em> 的链路传输速率</p>
-</li>
-</ul>
-<p><img src="/../img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240309235220588.png" srcset="/img/loading.gif" lazyload alt="image-20240309235220588"></p>
-<p><img src="/../img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240309235100557.png" srcset="/img/loading.gif" lazyload alt="image-20240309235100557"></p>
-<h5 id="1-存储转发传输"><a href="#1-存储转发传输" class="headerlink" title="1. 存储转发传输"></a>1. 存储转发传输</h5><ul>
-<li><strong>存储转发传输（store-and-forword transmission）</strong>：存储转发传输是指在交换机开始向输出链路传输该分组的第一个比特之前，必须接收到整个分组。在传输分组时，必须先缓存（即<strong>”存储“</strong>）该分组的比特，仅当路由器&#x2F;链路层交换机已经接收完该分组的所有比特后，它才能开始向链路传输（即<strong>”转发“</strong>）该分组</li>
-</ul>
-<h5 id="2-排队时延和分组丢失"><a href="#2-排队时延和分组丢失" class="headerlink" title="2. 排队时延和分组丢失"></a>2. 排队时延和分组丢失</h5><ul>
-<li><strong>输出缓存（output buffer）&#x2F;输出队列（output queue）</strong>：对于每条相连的链路，该分组交换机具有一个<strong>输出缓存</strong>，它用户存储路由器准备发往那条链路的分组</li>
-<li><strong>排队时延（queuing delay）</strong>：链路忙于传输其他分组，该分组在输出缓存中产生的等待时间</li>
-<li><strong>分组丢失（packet loss）</strong>：因为分组交换机的缓存空间是有限的，一个到达的分组可能发现该缓存被其他分组占满，在此情况下将出现<strong>分组丢失（丢包）</strong>，到达的分组或者已经排队的分组之一将被丢弃</li>
-</ul>
-<h5 id="3-转发表和路由选择协议"><a href="#3-转发表和路由选择协议" class="headerlink" title="3. 转发表和路由选择协议"></a>3. 转发表和路由选择协议</h5><p>​	每个端系统具有一个称为IP地址的地址。当源主机要向目的端系统发送一个分组时，源在该分组的首部中包含了目的地的IP地址</p>
+                <h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><p>在<strong>代理模式（Proxy Pattern）</strong>中，一个类代表另一个类的功能。这种类型的设计模式属于结构型模式。<br>在代理模式中，我们创建具有现有对象的对象，以便向外界提供功能接口。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><strong>意图：</strong>为其他对象提供一种代理以控制对这个对象的访问。</p>
+<p><strong>主要解决：</strong>在直接访问对象时带来的问题，比如说：要访问的对象在远程的机器上。在面向对象系统中，有些对象由于某些原因（比如对象创建开销很大，或者某些操作需要安全控制，或者需要进程外的访问），直接访问会给使用者或者系统结构带来很多麻烦，我们可以在访问此对象时加上一个对此对象的访问层。</p>
+<p><strong>何时使用：</strong>想在访问一个类时做一些控制。</p>
+<p><strong>如何解决：</strong>增加中间层。</p>
+<p><strong>关键代码：</strong>实现与被代理类组合。</p>
+<p><strong>优点：</strong> 1、职责清晰。 2、高扩展性。 3、智能化。</p>
+<p><strong>缺点：</strong> 1、由于在客户端和真实主题之间增加了代理对象，因此有些类型的代理模式可能会造成请求的处理速度变慢。 2、实现代理模式需要额外的工作，有些代理模式的实现非常复杂。</p>
+<p><strong>使用场景</strong>：Spring-AOP</p>
+<p><strong>注意事项：</strong></p>
 <ul>
-<li><strong>转发表（forwarding table）</strong> ：每台路由器具有一个<strong>转发表</strong>用于将目的地址（或目的地址的一部分）映射成输出链路。当某分组到达路由器时，路由器检查其地址，并搜索转发表，发现相应的出链路</li>
-<li><strong>路由选择协议（routing protocol）</strong>：用于自动地设置这些转发表。通过决定每台路由器到每个目的地的最短路径，使用最短路径结果来配置路由器中的转发表</li>
+<li>1、和适配器模式的区别：适配器模式主要改变所考虑对象的接口，而代理模式不能改变所代理类的接口。</li>
+<li>2、和装饰器模式的区别：装饰器模式为了增强功能，而代理模式是为了加以控制。</li>
 </ul>
-<h4 id="1-2-电路交换"><a href="#1-2-电路交换" class="headerlink" title="1.2 电路交换"></a>1.2 电路交换</h4><p>两台主机要通信时，该网络在两台主机之间创建一条专用的<strong>端到端连接</strong></p>
-<h5 id="电路交换网络中的复用"><a href="#电路交换网络中的复用" class="headerlink" title="电路交换网络中的复用"></a>电路交换网络中的复用</h5><ul>
-<li><strong>频分复用（FDM）</strong>：链路的频谱由跨越链路创建的所有连接共享。特别的，在连接期间链路为每条连接专设一个频段</li>
-<li><strong>时分复用（TDM）</strong>：将时间划分成固定时段的帧，并且每个帧又被划分固定数量的时隙。</li>
-<li>存在<strong>静默期</strong></li>
-</ul>
-<h4 id="1-3-网络的网络"><a href="#1-3-网络的网络" class="headerlink" title="1.3 网络的网络"></a>1.3 网络的网络</h4><p><img src="/../img/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240310151246840.png" srcset="/img/loading.gif" lazyload alt="image-20240310151246840"></p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p><img src="/../img/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20240404195034972.png" srcset="/img/loading.gif" lazyload alt="image-20240404195034972"></p>
+<h3 id="静态模式"><a href="#静态模式" class="headerlink" title="静态模式"></a>静态模式</h3><p><img src="/../img/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20240404194630768.png" srcset="/img/loading.gif" lazyload alt="image-20240404194630768"></p>
+<h3 id="动态模式"><a href="#动态模式" class="headerlink" title="动态模式"></a>动态模式</h3><p><strong>作用：</strong> 与静态代理一样，但动态代理解决了 静态代理中 1个静态代理，只代理1种类型的目标对象 的问题</p>
+<h4 id="1-JDK动态代理"><a href="#1-JDK动态代理" class="headerlink" title="1.  JDK动态代理"></a>1.  JDK动态代理</h4><p>在 JDK 动态代理中涉及如下角色：</p>
 <ul>
-<li><strong>因特网交换点（IXP）</strong>：<strong>IXP</strong> 是一个汇合点，多个 ISP 能够在这里一起对等</li>
+<li>目标类的接口 Interface</li>
+<li>目标类 target</li>
+<li>处理模版 Handler</li>
+<li>在内存中生成的动态代理类</li>
+<li>java.lang.reflect.Proxy</li>
 </ul>
-<h4 id="相关习题"><a href="#相关习题" class="headerlink" title="相关习题"></a>相关习题</h4><ul>
-<li><strong>R11.  假定在发送主机和接收主机间只有一台分组交换机。发送主机和交换机间以及交换机和接收主机间的传输速率分别是R1和R2。假设该交换机使用存储转发分组交换方式，发送一个长度为L的分组的端到端总时延是什么？（忽略排队时延、传播时延和处理时延）</strong><br>答：L &#x2F; R1 + L &#x2F; R2</li>
-<li><strong>R12. 与分组交换网络相比，电路交换网络有哪些优点？在电路交换网络中，TDM比FDM有哪些优点？</strong><br>答：电路交换网络适合实时服务。交付质量高。<br>TDM比FDM的优点如下：（来源于网络）</li>
-</ul>
-<ol>
-<li>当发生拥塞等网络问题时，TDM中的数据丢失可能只会是一部分，而FDM中就可能是大部分或全部。</li>
-<li>TDM适合数字信号传输，而FDM适合模拟信号传输，因为现在通信网络多是传输数字信号，所以TDM比FDM好。</li>
-<li>因为频分复用连接建立后，当中途没有数据传输时，他所占有的频段带宽不能被其他连接使用，故可能存在空置，而在时分复用的统计时分模式下，连接建立后，当某个连接暂时不用传输数据时可以少分时间片或者不分，即其时隙的分配时“按需分配”，这样就让出了相应的传输时间给其他连接。</li>
-</ol>
+<p><img src="/../img/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20240404200723259.png" srcset="/img/loading.gif" lazyload alt="image-20240404200723259"></p>
+<p>动态代理类实现了目标类的接口，并实现了接口中的方法，该方法的实现逻辑是， 调用父类 —— Proxy 的 h 的 invoke（）方法</p>
+<p>其中h 是 在创建动态代理实例时 newProxyInstance(ClassLoader loader, Class&lt;?&gt;[]interfaces,InvocationHandler h) 传入的第3个参数InvocationHandler对象</p>
+<p>在 InvocationHandler.invoke（）中通过反射，调用目标对象。</p>
+<p><strong>特点：</strong> 不需要显式实现与目标类相同的接口，而是将这种实现推迟到程序调用时由 JVM来实现，</p>
 <ul>
-<li><strong>R13. 假定用户共享一条2Mbps链路。同时假定当每个用户传输时连续以1Mbps传输，但每个用户仅传输20%的时间。<br>a. 当使用电路交换时，能够支持多少用户？<br>b. 作为该题的遗留问题，假定使用分组交换。为什么如果两个或更少的用户同时传输的话，在链路前面基本没有排队时延？为什么如果3个用户同时传输的话，将会有排队时延？<br>c. 求出某指定用户正在传输的概率。<br>d. 假定现在有3个用户。求出在任何给定时间，所有3个用户在同时传输的概率。求出队列增长的时间比率。</strong><br>答：<br>a.  2Mbps &#x2F; 1 Mbps &#x3D; 2 ，能够支持2位用户<br>b. 如果两个或更少的用户在传输，即使它们同时传输，也仅仅完全占用了2Mbps链路，不会造成排队。如果有3个用户同时传输，需要3Mbps，而此时链路只有2Mbps，因此将会有排队时延。<br>c.指定用户正在传输的概率为20%。<br>d.在任何给定的时间，所有三个用户同时传输的概率为0.2<em>0.2</em>0.2&#x3D;0.008。因为只有三个用户时，队列才会增长，所以队列增长的时间比率为0.008。</li>
-<li><strong>R14. 为什么在等级结构相同级别的两个ISP通常互相对等？某IXP是如何挣钱的？</strong><br>答：因为它们之间的所有流量可以直接连接而不是通过上游的ISP传输。<br>IXP可以通过交换的流量对ISP收费。</li>
-<li><strong>R15. 某些内容提供商构建了自己的网络。描述谷歌的网络。内容提供商构建这些网络的动机是什么？</strong><br>答：谷歌的网络：在本书写作的时候，谷歌估计有30-50个数据中心。谷歌的数据中心经过专用的TCP&#x2F;IP网络互连，该网络跨越全球，但仍然独立于公共因特网。<br>内容提供商构建这些网络的动机是：直接与较低层ISP对接，减少向ISP支付的费用。对其服务最终如何交付给端用户有了更多的控制。</li>
+<li>即：在使用时再创建动态代理类 和 实例</li>
+<li>静态代理则是在代理类实现时就指定与目标相同的接口</li>
+</ul>
+<p><strong>优点：一个代理类就可以代理多个目标类</strong>，避免重复、多余代码</p>
+<p><strong>缺点</strong></p>
+<ul>
+<li><strong>相比与静态代理，效率低。</strong> 静态代理是直接调用目标对象方法，而动态代理则需要先生成类和对象，在通过Java反射机制间接调用目标对象的方法</li>
+<li><strong>应用场景局限</strong>， 由于每个代理类都继承了 java.lang.reflect.Proxy 类，而Java又只能支持单继承，导致不能针对类 创建代理类，只能针对接口 创建 代理类。<strong>即，动态代理只能代理实现了接口的类。</strong></li>
+</ul>
+<p><strong>应用场景</strong></p>
+<ul>
+<li>需要代理的对象数量较多的情况下。数量较少时，推荐直接使用静态代理</li>
+<li>面向切面编程时</li>
+</ul>
+<h4 id="2-cglib动态代理"><a href="#2-cglib动态代理" class="headerlink" title="2. cglib动态代理"></a>2. cglib动态代理</h4><p><img src="/../img/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20240404202401008.png" srcset="/img/loading.gif" lazyload alt="image-20240404202401008"></p>
+<p><strong>代理类必须要和目标类是同一个类型！</strong></p>
+<p>这里的“同一个类型”指的是</p>
+<ul>
+<li>要么，<strong>代理类</strong>和<strong>目标类</strong>都实现了同一个接口，他们都属于同一种类型，即都是该接口的子类。</li>
+<li>要么，<strong>代理类</strong>继承自<strong>目标类</strong>，这也是属于同一种类型，前提是目标类没有被 final 关键字修饰</li>
+</ul>
+<h3 id="3-CGLib的动态代理-与java动态代理的区别"><a href="#3-CGLib的动态代理-与java动态代理的区别" class="headerlink" title="3. CGLib的动态代理 与java动态代理的区别"></a>3. CGLib的动态代理 与java动态代理的区别</h3><p><img src="/../img/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20240404203513475.png" srcset="/img/loading.gif" lazyload alt="image-20240404203513475"></p>
+<ul>
+<li>Java动态代理生成的代理类和目标类是 <strong>“兄弟”关系</strong></li>
+<li>cglib动态代理生成的代理类和目标类是 <strong>“父子”关系</strong></li>
+</ul>
+<h4 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h4><ul>
+<li>Java动态代理依赖于<strong>目标类有实现接口</strong></li>
+<li>cglib动态代依赖于<strong>目标类没有被final关键字修饰</strong></li>
 </ul>
 
                 
@@ -344,12 +358,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="category-chain-item">计算机网络</a>
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/" class="category-chain-item">计算机网络和因特网</a>
+  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" class="category-chain-item">结构型模式</a>
   
   
 
@@ -366,7 +380,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
+        <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="print-no-link">#设计模式</a>
       
     </div>
   
@@ -378,8 +392,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>计算机网络和因特网：网络核心</div>
-      <div>https://xsinxcos.github.io/2024/03/09/计算机网络和因特网：网络核心/</div>
+      <div>设计模式：代理模式</div>
+      <div>https://xsinxcos.github.io/2024/04/03/设计模式：代理模式/</div>
     </div>
     <div class="license-meta">
       
@@ -391,7 +405,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年3月9日</div>
+          <div>2024年4月3日</div>
         </div>
       
       
@@ -423,18 +437,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" title="设计模式：代理模式">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">设计模式：代理模式</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/03/04/JAVA%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9F%E8%AF%A5%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%EF%BC%9F/" title="JAVA为什么需要线程池？该如何实现？">
-                        <span class="hidden-mobile">JAVA为什么需要线程池？该如何实现？</span>
+                      <a href="/2024/03/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%EF%BC%9A%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83/" title="计算机网络和因特网：网络核心">
+                        <span class="hidden-mobile">计算机网络和因特网：网络核心</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

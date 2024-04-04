@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>设计模式：代理模式</title>
+    <link href="/2024/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
+    <url>/2024/04/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</url>
+    
+    <content type="html"><![CDATA[<h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><p>在<strong>代理模式（Proxy Pattern）</strong>中，一个类代表另一个类的功能。这种类型的设计模式属于结构型模式。<br>在代理模式中，我们创建具有现有对象的对象，以便向外界提供功能接口。</p><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><strong>意图：</strong>为其他对象提供一种代理以控制对这个对象的访问。</p><p><strong>主要解决：</strong>在直接访问对象时带来的问题，比如说：要访问的对象在远程的机器上。在面向对象系统中，有些对象由于某些原因（比如对象创建开销很大，或者某些操作需要安全控制，或者需要进程外的访问），直接访问会给使用者或者系统结构带来很多麻烦，我们可以在访问此对象时加上一个对此对象的访问层。</p><p><strong>何时使用：</strong>想在访问一个类时做一些控制。</p><p><strong>如何解决：</strong>增加中间层。</p><p><strong>关键代码：</strong>实现与被代理类组合。</p><p><strong>优点：</strong> 1、职责清晰。 2、高扩展性。 3、智能化。</p><p><strong>缺点：</strong> 1、由于在客户端和真实主题之间增加了代理对象，因此有些类型的代理模式可能会造成请求的处理速度变慢。 2、实现代理模式需要额外的工作，有些代理模式的实现非常复杂。</p><p><strong>使用场景</strong>：Spring-AOP</p><p><strong>注意事项：</strong></p><ul><li>1、和适配器模式的区别：适配器模式主要改变所考虑对象的接口，而代理模式不能改变所代理类的接口。</li><li>2、和装饰器模式的区别：装饰器模式为了增强功能，而代理模式是为了加以控制。</li></ul><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p><img src="/../img/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20240404195034972.png" alt="image-20240404195034972"></p><h3 id="静态模式"><a href="#静态模式" class="headerlink" title="静态模式"></a>静态模式</h3><p><img src="/../img/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20240404194630768.png" alt="image-20240404194630768"></p><h3 id="动态模式"><a href="#动态模式" class="headerlink" title="动态模式"></a>动态模式</h3><p><strong>作用：</strong> 与静态代理一样，但动态代理解决了 静态代理中 1个静态代理，只代理1种类型的目标对象 的问题</p><h4 id="1-JDK动态代理"><a href="#1-JDK动态代理" class="headerlink" title="1.  JDK动态代理"></a>1.  JDK动态代理</h4><p>在 JDK 动态代理中涉及如下角色：</p><ul><li>目标类的接口 Interface</li><li>目标类 target</li><li>处理模版 Handler</li><li>在内存中生成的动态代理类</li><li>java.lang.reflect.Proxy</li></ul><p><img src="/../img/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20240404200723259.png" alt="image-20240404200723259"></p><p>动态代理类实现了目标类的接口，并实现了接口中的方法，该方法的实现逻辑是， 调用父类 —— Proxy 的 h 的 invoke（）方法</p><p>其中h 是 在创建动态代理实例时 newProxyInstance(ClassLoader loader, Class&lt;?&gt;[]interfaces,InvocationHandler h) 传入的第3个参数InvocationHandler对象</p><p>在 InvocationHandler.invoke（）中通过反射，调用目标对象。</p><p><strong>特点：</strong> 不需要显式实现与目标类相同的接口，而是将这种实现推迟到程序调用时由 JVM来实现，</p><ul><li>即：在使用时再创建动态代理类 和 实例</li><li>静态代理则是在代理类实现时就指定与目标相同的接口</li></ul><p><strong>优点：一个代理类就可以代理多个目标类</strong>，避免重复、多余代码</p><p><strong>缺点</strong></p><ul><li><strong>相比与静态代理，效率低。</strong> 静态代理是直接调用目标对象方法，而动态代理则需要先生成类和对象，在通过Java反射机制间接调用目标对象的方法</li><li><strong>应用场景局限</strong>， 由于每个代理类都继承了 java.lang.reflect.Proxy 类，而Java又只能支持单继承，导致不能针对类 创建代理类，只能针对接口 创建 代理类。<strong>即，动态代理只能代理实现了接口的类。</strong></li></ul><p><strong>应用场景</strong></p><ul><li>需要代理的对象数量较多的情况下。数量较少时，推荐直接使用静态代理</li><li>面向切面编程时</li></ul><h4 id="2-cglib动态代理"><a href="#2-cglib动态代理" class="headerlink" title="2. cglib动态代理"></a>2. cglib动态代理</h4><p><img src="/../img/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20240404202401008.png" alt="image-20240404202401008"></p><p><strong>代理类必须要和目标类是同一个类型！</strong></p><p>这里的“同一个类型”指的是</p><ul><li>要么，<strong>代理类</strong>和<strong>目标类</strong>都实现了同一个接口，他们都属于同一种类型，即都是该接口的子类。</li><li>要么，<strong>代理类</strong>继承自<strong>目标类</strong>，这也是属于同一种类型，前提是目标类没有被 final 关键字修饰</li></ul><h3 id="3-CGLib的动态代理-与java动态代理的区别"><a href="#3-CGLib的动态代理-与java动态代理的区别" class="headerlink" title="3. CGLib的动态代理 与java动态代理的区别"></a>3. CGLib的动态代理 与java动态代理的区别</h3><p><img src="/../img/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20240404203513475.png" alt="image-20240404203513475"></p><ul><li>Java动态代理生成的代理类和目标类是 <strong>“兄弟”关系</strong></li><li>cglib动态代理生成的代理类和目标类是 <strong>“父子”关系</strong></li></ul><h4 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h4><ul><li>Java动态代理依赖于<strong>目标类有实现接口</strong></li><li>cglib动态代依赖于<strong>目标类没有被final关键字修饰</strong></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>设计模式</category>
+      
+      <category>结构型模式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>计算机网络和因特网：网络核心</title>
     <link href="/2024/03/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%EF%BC%9A%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83/"/>
     <url>/2024/03/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%EF%BC%9A%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83/</url>
