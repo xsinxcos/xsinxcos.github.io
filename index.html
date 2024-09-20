@@ -224,15 +224,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/06/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_self">
-          设计模式：装饰者模式
+        <a href="/2024/09/20/Redis/" target="_self">
+          分布式缓存：Redis
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/06/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/20/Redis/" target="_self">
         <div>
-          装饰者模式装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。 装饰器模式通过将对象包装在装饰器类中，以便动态地修改其行为。 这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能。 介绍动态地给一个对象添加额外的职责，同时不改变其结构。装饰器模式
+          Redis数据类型基本 String  是什么 字符串  数据结构 自己构建了一种 简单动态字符串（Simple Dynamic String，SDS）。相比于 C 的原生字符串，Redis 的 SDS 不光可以保存文本数据还可以保存二进制数据，并且获取字符串长度复杂度为 O(1)（C 字符串为 O(N)）,除此之外，Redis 的 SDS API 是安全的，不会造成缓冲区溢出。  使用场景 缓存
         </div>
       </a>
 
@@ -240,8 +240,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-06-07 23:53" pubdate>
-              2024-06-07
+            <time datetime="2024-09-20 23:53" pubdate>
+              2024-09-20
             </time>
           </div>
         
@@ -256,15 +256,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  <a href="/categories/%E7%BC%93%E5%AD%98/" class="category-chain-item">缓存</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" class="category-chain-item">结构型模式</a>
-  
-  
-
   
 
       </span>
@@ -278,7 +271,11 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">#设计模式</a>
+              <a href="/tags/%E7%BC%93%E5%AD%98/">#缓存</a>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/">#分布式缓存</a>
+            
+              <a href="/tags/Redis/">#Redis</a>
             
           </div>
         
@@ -292,15 +289,76 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/06/07/%E6%B5%8B%E8%AF%95xmind/" target="_self">
-          测试卷哦
+        <a href="/2024/09/20/%E7%BC%93%E5%AD%98%EF%BC%88Cache%EF%BC%89/" target="_self">
+          缓存（Cache）
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/06/07/%E6%B5%8B%E8%AF%95xmind/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/20/%E7%BC%93%E5%AD%98%EF%BC%88Cache%EF%BC%89/" target="_self">
         <div>
-          
+          缓存（Cache）缓存就是将数据存入内存中，利用内存的读取速度 为什么需要缓存由于数据库一般将数据存储于硬盘，硬盘的读取速度远小于内存的读取速度，所以能够提高访问速度，缓存支持的并发量也要更大，有了缓存之后，数据库的压力也会随之变小。 缓存实现方式实现方式可以分为本地缓存和分布式缓存 本地缓存 什么是本地缓存 直接存储于本地内存，不用进行网络传输  实现方式有哪些  使用Java本身的Concur
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-09-20 23:53" pubdate>
+              2024-09-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BC%93%E5%AD%98/" class="category-chain-item">缓存</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BC%93%E5%AD%98/">#缓存</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/06/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_self">
+          设计模式：装饰者模式
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/06/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_self">
+        <div>
+          装饰者模式装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。 装饰器模式通过将对象包装在装饰器类中，以便动态地修改其行为。 这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能。 介绍动态地给一个对象添加额外的职责，同时不改变其结构。装饰器模式
         </div>
       </a>
 
@@ -815,74 +873,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/01/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_self">
-          设计模式：策略模式
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_self">
-        <div>
-          策略模式在策略模式（Strategy Pattern）中一个类的行为或其算法可以在运行时更改。这种类型的设计模式属于行为型模式。 在策略模式定义了一系列算法或策略，并将每个算法封装在独立的类中，使得它们可以互相替换。通过使用策略模式，可以在运行时根据需要选择不同的算法，而不需要修改客户端代码。 在策略模式中，我们创建表示各种策略的对象和一个行为随着策略对象改变而改变的 context 对象。策略对
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-01-21 00:28" pubdate>
-              2024-01-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E6%A8%A1%E5%BC%8F/" class="category-chain-item">行为模式</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">#设计模式</a>
             
           </div>
         

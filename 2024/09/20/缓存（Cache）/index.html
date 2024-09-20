@@ -16,20 +16,22 @@
   <meta name="author" content="xsinxcos(涿)">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
-<meta property="og:title" content="测试卷哦">
-<meta property="og:url" content="https://xsinxcos.github.io/2024/06/07/%E6%B5%8B%E8%AF%95xmind/index.html">
+    <meta name="description" content="缓存（Cache）缓存就是将数据存入内存中，利用内存的读取速度 为什么需要缓存由于数据库一般将数据存储于硬盘，硬盘的读取速度远小于内存的读取速度，所以能够提高访问速度，缓存支持的并发量也要更大，有了缓存之后，数据库的压力也会随之变小。 缓存实现方式实现方式可以分为本地缓存和分布式缓存 本地缓存 什么是本地缓存 直接存储于本地内存，不用进行网络传输  实现方式有哪些  使用Java本身的Concur">
+<meta property="og:type" content="article">
+<meta property="og:title" content="缓存（Cache）">
+<meta property="og:url" content="https://xsinxcos.github.io/2024/09/20/%E7%BC%93%E5%AD%98%EF%BC%88Cache%EF%BC%89/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缓存（Cache）缓存就是将数据存入内存中，利用内存的读取速度 为什么需要缓存由于数据库一般将数据存储于硬盘，硬盘的读取速度远小于内存的读取速度，所以能够提高访问速度，缓存支持的并发量也要更大，有了缓存之后，数据库的压力也会随之变小。 缓存实现方式实现方式可以分为本地缓存和分布式缓存 本地缓存 什么是本地缓存 直接存储于本地内存，不用进行网络传输  实现方式有哪些  使用Java本身的Concur">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-06-07T15:53:00.000Z">
-<meta property="article:modified_time" content="2024-09-14T06:19:47.597Z">
+<meta property="article:published_time" content="2024-09-20T15:53:00.000Z">
+<meta property="article:modified_time" content="2024-09-20T15:55:50.548Z">
 <meta property="article:author" content="xsinxcos(涿)">
-<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="缓存">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>测试卷哦 - Hexo</title>
+  <title>缓存（Cache） - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -195,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="测试卷哦"></span>
+            <span id="subtitle" data-typed-text="缓存（Cache）"></span>
           
         </div>
 
@@ -206,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-06-07 23:53" pubdate>
-          2024年6月7日 晚上
+        <time datetime="2024-09-20 23:53" pubdate>
+          2024年9月20日 晚上
         </time>
       </span>
     
@@ -218,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          2.8k 字
         
       </span>
     
@@ -229,7 +231,7 @@
         
         
         
-          1 分钟
+          24 分钟
         
       </span>
     
@@ -266,15 +268,132 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">测试卷哦</h1>
+            <h1 id="seo-header">缓存（Cache）</h1>
             
             
               <div class="markdown-body">
                 
-                
-<div class="markmap-container" style="height:400px">
-  <svg data="{&quot;t&quot;:&quot;root&quot;,&quot;d&quot;:0,&quot;v&quot;:&quot;&quot;,&quot;c&quot;:[{&quot;t&quot;:&quot;list_item&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[0,1]},&quot;v&quot;:&quot;links&quot;},{&quot;t&quot;:&quot;list_item&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[2,3]},&quot;v&quot;:&quot;&lt;strong&gt;inline&lt;/strong&gt; &lt;del&gt;text&lt;/del&gt; &lt;em&gt;styles&lt;/em&gt;&quot;},{&quot;t&quot;:&quot;list_item&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[4,6]},&quot;v&quot;:&quot;multiline&lt;br&gt;\ntext&quot;},{&quot;t&quot;:&quot;list_item&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[7,8]},&quot;v&quot;:&quot;&lt;code&gt;inline code&lt;/code&gt;&quot;},{&quot;t&quot;:&quot;list_item&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[9,14]},&quot;v&quot;:&quot;&lt;pre class=\&quot;language-js\&quot;&gt;&lt;code class=\&quot;language-js\&quot;&gt;console&lt;span class=\&quot;token punctuation\&quot;&gt;.&lt;/span&gt;&lt;span class=\&quot;token function\&quot;&gt;log&lt;/span&gt;&lt;span class=\&quot;token punctuation\&quot;&gt;(&lt;/span&gt;&lt;span class=\&quot;token string\&quot;&gt;&#39;code block&#39;&lt;/span&gt;&lt;span class=\&quot;token punctuation\&quot;&gt;)&lt;/span&gt;&lt;span class=\&quot;token punctuation\&quot;&gt;;&lt;/span&gt;\nconsole&lt;span class=\&quot;token punctuation\&quot;&gt;.&lt;/span&gt;&lt;span class=\&quot;token function\&quot;&gt;log&lt;/span&gt;&lt;span class=\&quot;token punctuation\&quot;&gt;(&lt;/span&gt;&lt;span class=\&quot;token string\&quot;&gt;&#39;code block&#39;&lt;/span&gt;&lt;span class=\&quot;token punctuation\&quot;&gt;)&lt;/span&gt;&lt;span class=\&quot;token punctuation\&quot;&gt;;&lt;/span&gt;\n&lt;/code&gt;&lt;/pre&gt;\n&quot;},{&quot;t&quot;:&quot;list_item&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[14,15]},&quot;v&quot;:&quot;KaTeX - &lt;span class=\&quot;katex\&quot;&gt;&lt;span class=\&quot;katex-mathml\&quot;&gt;&lt;math xmlns=\&quot;http://www.w3.org/1998/Math/MathML\&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mfrac&gt;&lt;mrow&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mi&gt;b&lt;/mi&gt;&lt;mo&gt;±&lt;/mo&gt;&lt;msqrt&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mi&gt;b&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mn&gt;4&lt;/mn&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;/mrow&gt;&lt;/msqrt&gt;&lt;/mrow&gt;&lt;mrow&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;/mrow&gt;&lt;/mfrac&gt;&lt;/mrow&gt;&lt;annotation encoding=\&quot;application/x-tex\&quot;&gt;x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=\&quot;katex-html\&quot; aria-hidden=\&quot;true\&quot;&gt;&lt;span class=\&quot;base\&quot;&gt;&lt;span class=\&quot;strut\&quot; style=\&quot;height:0.43056em;vertical-align:0em;\&quot;&gt;&lt;/span&gt;&lt;span class=\&quot;mord mathnormal\&quot;&gt;x&lt;/span&gt;&lt;span class=\&quot;mspace\&quot; style=\&quot;margin-right:0.2777777777777778em;\&quot;&gt;&lt;/span&gt;&lt;span class=\&quot;mrel\&quot;&gt;=&lt;/span&gt;&lt;span class=\&quot;mspace\&quot; style=\&quot;margin-right:0.2777777777777778em;\&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=\&quot;base\&quot;&gt;&lt;span class=\&quot;strut\&quot; style=\&quot;height:1.384482em;vertical-align:-0.345em;\&quot;&gt;&lt;/span&gt;&lt;span class=\&quot;mord\&quot;&gt;&lt;span class=\&quot;mord\&quot;&gt;&lt;span class=\&quot;mopen nulldelimiter\&quot;&gt;&lt;/span&gt;&lt;span class=\&quot;mfrac\&quot;&gt;&lt;span class=\&quot;vlist-t vlist-t2\&quot;&gt;&lt;span class=\&quot;vlist-r\&quot;&gt;&lt;span class=\&quot;vlist\&quot; style=\&quot;height:1.039482em;\&quot;&gt;&lt;span style=\&quot;top:-2.6550000000000002em;\&quot;&gt;&lt;span class=\&quot;pstrut\&quot; style=\&quot;height:3em;\&quot;&gt;&lt;/span&gt;&lt;span class=\&quot;sizing reset-size6 size3 mtight\&quot;&gt;&lt;span class=\&quot;mord mtight\&quot;&gt;&lt;span class=\&quot;mord mtight\&quot;&gt;2&lt;/span&gt;&lt;span class=\&quot;mord mathnormal mtight\&quot;&gt;a&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=\&quot;top:-3.23em;\&quot;&gt;&lt;span class=\&quot;pstrut\&quot; style=\&quot;height:3em;\&quot;&gt;&lt;/span&gt;&lt;span class=\&quot;frac-line\&quot; style=\&quot;border-bottom-width:0.04em;\&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=\&quot;top:-3.3939999999999997em;\&quot;&gt;&lt;span class=\&quot;pstrut\&quot; style=\&quot;height:3em;\&quot;&gt;&lt;/span&gt;&lt;span class=\&quot;sizing reset-size6 size3 mtight\&quot;&gt;&lt;span class=\&quot;mord mtight\&quot;&gt;&lt;span class=\&quot;mord mtight\&quot;&gt;−&lt;/span&gt;&lt;span class=\&quot;mord mathnormal mtight\&quot;&gt;b&lt;/span&gt;&lt;span class=\&quot;mbin mtight\&quot;&gt;±&lt;/span&gt;&lt;span class=\&quot;mord sqrt mtight\&quot;&gt;&lt;span class=\&quot;vlist-t vlist-t2\&quot;&gt;&lt;span class=\&quot;vlist-r\&quot;&gt;&lt;span class=\&quot;vlist\&quot; style=\&quot;height:0.9221171428571429em;\&quot;&gt;&lt;span class=\&quot;svg-align\&quot; style=\&quot;top:-3em;\&quot;&gt;&lt;span class=\&quot;pstrut\&quot; style=\&quot;height:3em;\&quot;&gt;&lt;/span&gt;&lt;span class=\&quot;mord mtight\&quot; style=\&quot;padding-left:0.833em;\&quot;&gt;&lt;span class=\&quot;mord mtight\&quot;&gt;&lt;span class=\&quot;mord mathnormal mtight\&quot;&gt;b&lt;/span&gt;&lt;span class=\&quot;msupsub\&quot;&gt;&lt;span class=\&quot;vlist-t\&quot;&gt;&lt;span class=\&quot;vlist-r\&quot;&gt;&lt;span class=\&quot;vlist\&quot; style=\&quot;height:0.7463142857142857em;\&quot;&gt;&lt;span style=\&quot;top:-2.786em;margin-right:0.07142857142857144em;\&quot;&gt;&lt;span class=\&quot;pstrut\&quot; style=\&quot;height:2.5em;\&quot;&gt;&lt;/span&gt;&lt;span class=\&quot;sizing reset-size3 size1 mtight\&quot;&gt;&lt;span class=\&quot;mord mtight\&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=\&quot;mbin mtight\&quot;&gt;−&lt;/span&gt;&lt;span class=\&quot;mord mtight\&quot;&gt;4&lt;/span&gt;&lt;span class=\&quot;mord mathnormal mtight\&quot;&gt;a&lt;/span&gt;&lt;span class=\&quot;mord mathnormal mtight\&quot;&gt;c&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=\&quot;top:-2.882117142857143em;\&quot;&gt;&lt;span class=\&quot;pstrut\&quot; style=\&quot;height:3em;\&quot;&gt;&lt;/span&gt;&lt;span class=\&quot;hide-tail mtight\&quot; style=\&quot;min-width:0.853em;height:1.08em;\&quot;&gt;&lt;svg width=&#39;400em&#39; height=&#39;1.08em&#39; viewBox=&#39;0 0 400000 1080&#39; preserveAspectRatio=&#39;xMinYMin slice&#39;&gt;&lt;path d=&#39;M95,702\nc-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14\nc0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54\nc44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10\ns173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429\nc69,-144,104.5,-217.7,106.5,-221\nl0 -0\nc5.3,-9.3,12,-14,20,-14\nH400000v40H845.2724\ns-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7\nc-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z\nM834 80h400000v40h-400000z&#39;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=\&quot;vlist-s\&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=\&quot;vlist-r\&quot;&gt;&lt;span class=\&quot;vlist\&quot; style=\&quot;height:0.11788285714285718em;\&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=\&quot;vlist-s\&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=\&quot;vlist-r\&quot;&gt;&lt;span class=\&quot;vlist\&quot; style=\&quot;height:0.345em;\&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=\&quot;mclose nulldelimiter\&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&quot;}],&quot;p&quot;:{}}"></svg>
-</div>
+                <h1 id="缓存（Cache）"><a href="#缓存（Cache）" class="headerlink" title="缓存（Cache）"></a>缓存（Cache）</h1><p>缓存就是将数据存入内存中，利用内存的读取速度</p>
+<h2 id="为什么需要缓存"><a href="#为什么需要缓存" class="headerlink" title="为什么需要缓存"></a>为什么需要缓存</h2><p>由于数据库一般将数据存储于硬盘，硬盘的读取速度远小于内存的读取速度，所以能够提高访问速度，缓存支持的并发量也要更大，有了缓存之后，数据库的压力也会随之变小。</p>
+<h2 id="缓存实现方式"><a href="#缓存实现方式" class="headerlink" title="缓存实现方式"></a>缓存实现方式</h2><p>实现方式可以分为本地缓存和分布式缓存</p>
+<h3 id="本地缓存"><a href="#本地缓存" class="headerlink" title="本地缓存"></a>本地缓存</h3><ul>
+<li><p>什么是本地缓存</p>
+<p>直接存储于本地内存，不用进行网络传输</p>
+</li>
+<li><p>实现方式有哪些</p>
+<p> 使用Java本身的ConcurrentHashMap作为本地缓存，缺点是只提供了缓存的功能，并没有提供其他诸如<br>过期时间之类的功能。一个稍微完善一点的缓存框架至少要提供：过期时间、淘汰机制、命中率统计这三点。<br>利用第三方缓存框架：Ehcache 、 Guava Cache 、 Spring Cache、Caffeine</p>
+</li>
+<li><p>本地缓存的好处</p>
+<p>提高数据的读取效率（内存＞硬盘），比起分布式缓存（远程）少了网络传输带来的时间开销，还有低依赖、轻量、简单、成本低</p>
+</li>
+<li><p>本地缓存的痛点和解决方案</p>
+<p>痛点：<br>本地缓存应用耦合，对分布式架构支持不友好，比如同一个相同的服务部署在多台机器上的时候， 各个服务之间的缓存是无法共享的，因为本地缓存只在当前机器上有。<br>本地缓存容量受服务部署所在的机器限制明显。 如果当前系统服务所耗费的内存多，那么本地缓存 可用的容量就很少。<br>解决方案：<br>引入分布式缓存</p>
+</li>
+</ul>
+<h3 id="分布式缓存"><a href="#分布式缓存" class="headerlink" title="分布式缓存"></a>分布式缓存</h3><ul>
+<li><p>什么是分布式缓存</p>
+<p>我们可以把分布式缓存（Distributed Cache） 看作是一种内存数据库的服务，它的最终作用就是提供缓存数据的服务。<br>分布式缓存脱离于应用独立存在，多个应用可直接的共同使用同一个分布式缓存服务。</p>
+</li>
+<li><p>为什么要有分布式缓存</p>
+<p>为了解决以下单独使用本地缓存的痛点<br>本地缓存应用耦合，对分布式架构支持不友好<br>本地缓存容量受服务部署所在的机器限制明显。</p>
+</li>
+<li><p>分布式缓存有哪些</p>
+<ul>
+<li><p><a href="file:C:\Users\涿\Desktop\思维导图\缓存八股\Redis.xmind">Redis</a></p>
+</li>
+<li><p>Memcached</p>
+</li>
+</ul>
+</li>
+<li><p>引入分布式缓存的导致的问题</p>
+<p>系统复杂性增加 ：引入缓存之后，你要维护缓存和数据库的数据一致性、维护热点缓存、保证缓存<br>服务的高可用等等。<br>系统开发成本往往会增加 ：引入缓存意味着系统需要一个单独的缓存服务，这是需要花费相应的成<br>本的，并且这个成本还是很贵的，毕竟耗费的是宝贵的内存。</p>
+</li>
+</ul>
+<h2 id="缓存更新策略"><a href="#缓存更新策略" class="headerlink" title="缓存更新策略"></a>缓存更新策略</h2><h3 id="缓存旁路模式"><a href="#缓存旁路模式" class="headerlink" title="缓存旁路模式"></a>缓存旁路模式</h3><p>Cache Aside Pattern 是我们平时使用比较多的一个缓存读写模式，比较适合读请求比较多的场景。 </p>
+<ul>
+<li><p>写</p>
+<p>先更新 db<br>直接删除cache</p>
+</li>
+<li><p>读</p>
+<ol>
+<li>从 cache 中读取数据，读取到就直接返回； </li>
+<li>cache 中读取不到的话，就从 db 中读取数据返回； </li>
+<li>再把 db 中读取到的数据放到 cache 中</li>
+</ol>
+</li>
+<li><p>为什么先为什么删除 cache，而不是更新 cache？</p>
+<p>主要原因有两点： </p>
+<ol>
+<li>对服务端资源造成浪费 ：删除 cache 更加直接，这是因为 cache 中存放的一些数据需要服务端经<br>过大量的计算才能得出，会消耗服务端的资源，是一笔不晓得开销。如果频繁修改 db，就能会导<br>致需要频繁更新 cache，而 cache 中的数据可能都没有被访问到。 </li>
+<li>产生数据不一致问题 ：并发场景下，更新 cache 产生数据不一致性问题的概率会更大（后文会解<br>释原因）。</li>
+</ol>
+</li>
+<li><p>在写数据的过程中，可以先删除 cache ，后更新 db 么</p>
+<p>那肯定是不行的！因为这样可能会造成 数据库（db）和缓存（Cache）数据不一致的问题。<br>举例：请求 1 先写数据 A，请求 2 随后读数据 A 的话，就很有可能产生数据不一致性的问题。这个过程<br>可以简单描述为： </p>
+<ol>
+<li>请求 1 先把 cache 中的 A 数据删除； </li>
+<li>请求 2 从 db 中读取数据；3. 请求 1 再把 db 中的 A 数据更新。<br>这就会导致请求 2 读取到的是旧值。</li>
+</ol>
+</li>
+<li><p>在写数据的过程中，先更新 db，后删除 cache 就没有问题了么？”</p>
+<p>理论上来说还是可能会出现数据不一致性的问题，不过概率非常小，因为缓存的写入速度是比数<br>据库的写入速度快很多。<br>举例：请求 1 先读数据 A，请求 2 随后写数据 A，并且数据 A 在请求 1 请求之前不在缓存中的话，也有<br>可能产生数据不一致性的问题。这个过程可以简单描述为： </p>
+<ol>
+<li>请求 1 从 db 读数据 A； </li>
+<li>请求 2 更新 db 中的数据 A（此时缓存中无数据 A ，故不用执行删除缓存操作 ）； </li>
+<li>请求 1 将数据 A 写入 cache。<br>这就会导致 cache 中存放的其实是旧值。</li>
+</ol>
+</li>
+<li><p>·缺陷</p>
+<p>缺陷 1：首次请求数据一定不在 cache 的问题<br>解决办法：可以将热点数据可以提前放入 cache 中。<br>缺陷 2：写操作比较频繁的话导致 cache 中的数据会被频繁被删除，这样会影响缓存命中率 。<br>解决办法：<br>数据库和缓存数据强一致场景 ：更新 db 的时候同样更新 cache，不过我们需要加一个锁&#x2F;分布式<br>锁来保证更新 cache 的时候不存在线程安全问题。<br>可以短暂地允许数据库和缓存数据不一致的场景 ：更新 db 的时候同样更新 cache，但是给缓存加<br>一个比较短的过期时间，这样的话就可以保证即使数据不一致的话影响也比较小。</p>
+</li>
+</ul>
+<h3 id="读写穿透"><a href="#读写穿透" class="headerlink" title="读写穿透"></a>读写穿透</h3><p>Read&#x2F;Write Through Pattern 中服务端把 cache 视为主要数据存储，从中读取数据并将数据写入其中。<br>cache 服务负责将此数据读取和写入 db，从而减轻了应用程序的职责</p>
+<ul>
+<li><p>写</p>
+<p>先查 cache，cache 中不存在，直接更新 db。<br>cache 中存在，则先更新 cache，然后 cache 服务自己更新 db（同步更新 cache 和 db）。 </p>
+</li>
+<li><p>读</p>
+<p>从 cache 中读取数据，读取到就直接返回 。<br>读取不到的话，先从 db 加载，写入到 cache 后返回响应。</p>
+</li>
+<li><p>与缓存旁路模式的区别</p>
+<p>Read-Through Pattern 实际只是在 Cache-Aside Pattern 之上进行了封装。在 Cache-Aside Pattern 下，发生读请求的时候，如果 cache 中不存在对应的数据，是由客户端自己负责把数据写入 cache，而 Read Through Pattern 则是 cache 服务自己来写入缓存的，这对客户端是透明的。 和 Cache Aside Pattern 一样， Read-Through Pattern 也有首次请求数据一定不再 cache 的问题，对 于热点数据可以提前放入缓存中。</p>
+</li>
+</ul>
+<h3 id="异步缓存写入"><a href="#异步缓存写入" class="headerlink" title="异步缓存写入"></a>异步缓存写入</h3><ul>
+<li><p>写</p>
+<p>Read&#x2F;Write Through 是同步更新 cache 和 db，而 Write Behind 则是<br>只更新缓存，不直接更新 db，而是改为异步批量的方式来更新 db。 </p>
+</li>
+<li><p>读</p>
+<p>从 cache 中读取数据，读取到就直接返回 。<br>读取不到的话，先从 db 加载，写入到 cache 后返回响应。</p>
+</li>
+<li><p>适用场景</p>
+<p>这种方式对数据一致性带来了更大的挑战，比如 cache 数据可能还没异步更新 db 的话，<br>cache 服务可能就就挂掉了。<br>这种策略在我们平时开发过程中也非常非常少见，但是不代表它的应用场景少，比如消息队列中消息的<br>异步写入磁盘、MySQL 的 Innodb Buffer Pool 机制都用到了这种策略。<br>Write Behind Pattern 下 db 的写性能非常高，非常适合一些数据经常变化又对数据一致性要求没那么 高的场景，比如浏览量、点赞量。</p>
+</li>
+</ul>
+<h2 id="生产问题"><a href="#生产问题" class="headerlink" title="生产问题"></a>生产问题</h2><h3 id="如何保证缓存和数据库数据的一致性"><a href="#如何保证缓存和数据库数据的一致性" class="headerlink" title="如何保证缓存和数据库数据的一致性"></a>如何保证缓存和数据库数据的一致性</h3><h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><ul>
+<li><p>什么是缓存穿透</p>
+<p> 缓存穿透说简单点就是大量请求的 key 是不合理的，根本不存在于缓存中，也不存在于数据库中 。这就导致这些请求直接到了数据库上，根本没有经过缓存这一层，对数据库造成了巨大的压力，可能直接就被这么多请求弄宕机了。</p>
+</li>
+<li><p>解决方式</p>
+<p>1）缓存无效 key<br>2）布隆过滤器<br>3）接口限流</p>
+</li>
+</ul>
+<h3 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h3><ul>
+<li><p>什么是缓存击穿</p>
+<p> 缓存击穿中，请求的 key 对应的是 热点数据 ，该数据 存在于数据库中，但不存在于缓存中（通常是因为缓存中的那份数据已经过期） 。这就可能会导致瞬时大量的请求直接打到了数据库上，对数据库造成了巨大的压力，可能直接就被这么多请求弄宕机了。</p>
+</li>
+<li><p>解决方式</p>
+<p>永不过期（不推荐）：设置热点数据永不过期或者过期时间比较长。<br>提前预热（推荐）：针对热点数据提前预热，将其存入缓存中并设置合理的过期时间比如秒杀场景下的数据在秒杀结束之前不过期。<br>加锁（看情况）：在缓存失效后，通过设置互斥锁确保只有一个请求去查询数据库并更新缓存。</p>
+</li>
+</ul>
+<h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><ul>
+<li><p>什么是缓存雪崩</p>
+<p>：缓存在同一时间大面积的失效，导致大量的请求都直接落到了数据库上，对数据库造成了巨大的压力。 这就好比雪崩一样，摧枯拉朽之势，数据库的压力可想而知，可能直接就被这么多请求弄宕机了。</p>
+</li>
+<li><p>解决方式</p>
+<p>针对 Redis 服务不可用的情况：<br>Redis 集群：采用 Redis 集群，避免单机出现问题整个缓存服务都没办法使用。Redis Cluster 和 Redis Sentinel 是两种最常用的 Redis 集群实现方案，<br>多级缓存：设置多级缓存，例如本地缓存+Redis 缓存的二级缓存组合，当 Redis 缓存出现问题时，还可以从本地缓存中获取到部分数据。<br>针对大量缓存同时失效的情况：<br>设置随机失效时间（可选）：为缓存设置随机的失效时间，例如在固定过期时间的基础上加上一个随机值，这样可以避免大量缓存同时到期，从而减少缓存雪崩的风险。<br>提前预热（推荐）：针对热点数据提前预热，将其存入缓存中并设置合理的过期时间比如秒杀场景下的数据在秒杀结束之前不过期。<br>持久缓存策略（看情况）：虽然一般不推荐设置缓存永不过期，但对于某些关键性和变化不频繁的数据，可以考虑这种策略</p>
+</li>
+</ul>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
                 
               </div>
@@ -293,15 +412,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="category-chain-item">设计模式</a>
+  <a href="/categories/%E7%BC%93%E5%AD%98/" class="category-chain-item">缓存</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" class="category-chain-item">结构型模式</a>
-  
-  
-
   
 
       </span>
@@ -315,7 +427,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="print-no-link">#设计模式</a>
+        <a href="/tags/%E7%BC%93%E5%AD%98/" class="print-no-link">#缓存</a>
       
     </div>
   
@@ -327,8 +439,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>测试卷哦</div>
-      <div>https://xsinxcos.github.io/2024/06/07/测试xmind/</div>
+      <div>缓存（Cache）</div>
+      <div>https://xsinxcos.github.io/2024/09/20/缓存（Cache）/</div>
     </div>
     <div class="license-meta">
       
@@ -340,7 +452,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年6月7日</div>
+          <div>2024年9月20日</div>
         </div>
       
       
@@ -372,9 +484,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/06/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/" title="设计模式：装饰者模式">
+                      <a href="/2024/09/20/Redis/" title="分布式缓存：Redis">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">设计模式：装饰者模式</span>
+                        <span class="hidden-mobile">分布式缓存：Redis</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -382,8 +494,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/04/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%83%E5%A4%A7%E5%8E%9F%E5%88%99/" title="设计模式七大原则">
-                        <span class="hidden-mobile">设计模式七大原则</span>
+                      <a href="/2024/06/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/" title="设计模式：装饰者模式">
+                        <span class="hidden-mobile">设计模式：装饰者模式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -650,5 +762,5 @@
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script src="/js/markmap.js"></script></body>
+</body>
 </html>
